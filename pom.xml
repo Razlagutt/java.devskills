@@ -16,7 +16,8 @@
 		<module>java-a-to-z\chapter_01\lesson_03</module>
 		<module>java-a-to-z\chapter_01\lesson_04</module>
 		<module>java-a-to-z\chapter_01\lesson_05</module>
-		<module>java-a-to-z\chapter_01\lesson_06</module>		
+		<module>java-a-to-z\chapter_01\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_02</module>
 	</modules>
 	
 	<dependencies>
