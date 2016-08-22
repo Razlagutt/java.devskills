@@ -2,6 +2,7 @@ package ru.ablokhin.l_012.start;
 
 import ru.ablokhin.l_012.models.Order;
 
+import java.util.Random;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -20,25 +21,32 @@ public class Tracker{
 	/** Индекс массива заявок при добавлении комментария к заявке в базу данных */
 	private int commentIndx = 0;
 
+	private static final Random RN = new Random();
+
 	/**
 	 * Метод add для создания заявки
 	 * @param order заявка
 	 * @return true, если успешно добавлено
 	 */
-	public boolean add(Order order){
+	public Order add(Order order){
+		order.setDate();
+		order.setId(generate());
 		this.orders[indx++] = order;
-		return true;
+		return this.orders[indx];
 	}
 
 	/**
 	 * Метод editOrder ищет заявку для редактирования
-	 * @param name имя заявки
+	 * @param id идентификатор заявки
 	 * @return возвращает найденную заявку
 	 */
-	public Order editOrder(String name){
+	public Order editOrder(String id, String name, String description){
 		Order result = null;
         for (Order order : this.orders) {
-            if (order.getName().equals(name)) {
+            if ( order != null && order.getId().equals(id)) {
+            	order.setName(name);
+				order.setDescription(description);
+				order.setDate();
                 result = order;
                 break;
             }
@@ -48,22 +56,21 @@ public class Tracker{
 
 	/**
 	 * Метод removeOrder удаляет заявку
-	 * @param name имя заявки
+	 * @param id идентификатор заявки
 	 * @return true, если заявка успешно удалена
 	 */
-	public boolean removeOrder(String name){
+	public boolean removeOrder(String id){
 		boolean result = false;
-        for (Order order : this.orders) {
-            if ( order != null && order.getName().equals(name)) {
-                order.setName(null);
-                order.setDescription(null);
-                order.setDate(null);
-                String[] comments = order.getComments();
-                comments = null;
-                /*for (String comment : order.getComments()) {
-                    comment = null;
-                }*/
-                result = true;
+		Order[] copiedOrders = new Order[999];
+        for ( int i = 0; i != this.indx + 1; i++){
+            if ( this.orders[i] != null && this.orders[i].getId().equals(id)) {
+				this.orders[i] = null;
+				System.arraycopy(this.orders, 0, copiedOrders,0, i);
+				System.arraycopy(this.orders, i + 1, copiedOrders, i, this.indx - i);
+				this.orders = copiedOrders;
+				this.indx--;
+				result = true;
+				break;
             }
         }
 		return result;
@@ -76,8 +83,10 @@ public class Tracker{
 	public Order[] showOrders(){
 	    int indxShow = 0;
 	    Order[] orderToSshow = new Order[999];
-        for(Order order: this.orders){
-            if(order != null) {orderToSshow[indxShow++] = order;}
+		for(int i = 0; i != this.indx + 1; i++){
+        /*for(Order order: this.orders){
+            if(order != null) {orderToSshow[indxShow++] = order;}*/
+			orderToSshow[indxShow++] = this.orders[i];
         }
 	    return orderToSshow;
 	}
@@ -138,15 +147,15 @@ public class Tracker{
 
 	/**
 	 * Метод commentToOrder для добавления комментария к заявке
-	 * @param name имя заявки
+	 * @param id идентификатор заявки
 	 * @param comment комментарий к заявке
 	 * @return true, если комментарий успешно добавлен
 	 */
-	public boolean commentToOrder(String name, String comment){
+	public boolean commentToOrder(String id, String comment){
 		boolean result = false;
 		if( !comment.equals("") ) {
 			for (Order order : this.orders) {
-				if (order.getName().equals(name)) {
+				if (order != null && order.getId().equals(id)) {
 					order.getComments()[commentIndx++] = comment;
 					result = true;
 					break;
@@ -155,4 +164,9 @@ public class Tracker{
 		}
 		return result;
 	}
+
+	String generate(){
+		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
+	}
+
 }

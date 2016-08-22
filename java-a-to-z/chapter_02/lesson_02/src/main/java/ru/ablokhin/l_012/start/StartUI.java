@@ -7,30 +7,113 @@ import ru.ablokhin.l_012.models.Order;
  */
 public class StartUI {
     public static void main(String[] args) {
-        /* Создание заявки*/
+
+        /* Инициализация трекера*/
         Tracker tracker = new Tracker();
-        Order order = new Order("First Order", "Add First Order.");
-        tracker.add(order);
-        System.out.println("ADD ORDER:"
-                + "\nName: " + tracker.showOrders()[0].getName()
-                + "\nDescription: " + tracker.showOrders()[0].getDescription()
-                + "\nDate: " + tracker.showOrders()[0].getDate() + "\n-----------");
 
-        /* Редактирование заявки*/
-        Order orderToEdit = tracker.editOrder("First Order");
-        orderToEdit.setDescription("First Order Was Changed.");
-        System.out.println("EDIT ORDER:"
-                + "\nName: " + tracker.showOrders()[0].getName()
-                + "\nDescription: " + tracker.showOrders()[0].getDescription()
-                + "\nDate: " + tracker.showOrders()[0].getDate() + "\n-----------");
+        /* Создание заявки*/
+        System.out.println("ADD ORDER:");
+        Order order1 = new Order("First Order", "Add First Order.");
+        tracker.add(order1);
+        order1.setId("1");
 
-        /* Добавление комметария к заявке*/
-        tracker.commentToOrder("First Order", "Great Service!");
+        Order order2 = new Order("Second Order", "Add Second Order.");
+        tracker.add(order2);
+        order2.setId("2");
 
-        /* Вывод всех заявок*/
+        Order order3 = new Order("Third Order", "Add Third Order.");
+        tracker.add(order3);
+        order3.setId("3");
+
+        Order order4 = new Order("Fourth Order", "Add Fourth Order.");
+        tracker.add(order4);
+        order4.setId("4");
+
         for (Order orderToShow: tracker.showOrders()) {
             if(orderToShow != null) {
-                System.out.println("SHOW ORDERS:"
+                System.out.println(
+                        "ID: " + orderToShow.getId()
+                                + "\nName: " + orderToShow.getName()
+                                + "\nDescription: " + orderToShow.getDescription()
+                                + "\nDate: " + orderToShow.getDate() + "\n");
+                String[] comments = orderToShow.getComments();
+                for (String comment: comments) {
+                    if(comment != null && !comment.equals("") ){
+                        System.out.println("Comments:");
+                        System.out.println("- " + comment + "\n");
+                    }
+                }
+            }
+        }
+        System.out.println("-----------");
+
+        /* Редактирование заявки*/
+        Order orderToEdit = tracker.editOrder("2", "Changed Order", "Changed Description");
+        System.out.println("EDIT ORDER:"
+                + "\nID: " + orderToEdit.getId()
+                + "\nName: " + orderToEdit.getName()
+                + "\nDescription: " + orderToEdit.getDescription()
+                + "\nDate: " + orderToEdit.getDate() + "\n-----------");
+
+        /* Добавление комметария к заявке*/
+        if(tracker.commentToOrder("1", "Great Service!")){
+            System.out.println("Add comment successfully!"
+                    + "\n-----------");
+        }
+
+        /* Вывод всех заявок*/
+        System.out.println("SHOW ORDERS:");
+        for (Order orderToShow: tracker.showOrders()) {
+            if(orderToShow != null) {
+                System.out.println(
+                        "ID: " + orderToShow.getId()
+                        + "\nName: " + orderToShow.getName()
+                        + "\nDescription: " + orderToShow.getDescription()
+                        + "\nDate: " + orderToShow.getDate() + "\n");
+                String[] comments = orderToShow.getComments();
+                for (String comment: comments) {
+                    if(comment != null && !comment.equals("") ){
+                        System.out.println("Comments:");
+                        System.out.println("- " + comment + "\n");
+                    }
+                }
+            }
+        }
+        System.out.println("-----------");
+
+        /* Поиск заявок по периоду*/
+        System.out.println("FIND ORDER BY PERIOD:");
+        Order[] findOrders = tracker.findOrder("2016.07.30 12:12:12", "2016.08.30 12:12:12");
+        for(Order findOrder: findOrders){
+            if(findOrder != null) {
+                System.out.println(
+                        "ID: " + findOrder.getId()
+                        + "\nName: " + findOrder.getName()
+                        + "\nDescription: " + findOrder.getDescription()
+                        + "\nDate: " + findOrder.getDate() + "\n-----------");
+            }
+        }
+
+        /* Поиск заявок по подстроке*/
+        findOrders = tracker.findOrder("Changed");
+        System.out.println("FIND ORDER BY SUBSTRING:");
+        for (Order findOrder: findOrders){
+            if(findOrder != null) {
+                System.out.println(
+                        "ID: " + findOrder.getId()
+                        + "\nName: " + findOrder.getName()
+                        + "\nDescription: " + findOrder.getDescription()
+                        + "\nDate: " + findOrder.getDate() + "\n-----------");
+            }
+        }
+
+        /* Удаление заявки*/
+        tracker.removeOrder("1");
+        System.out.println("REMOVE ORDER ID = 1:");
+        for (Order orderToShow: tracker.showOrders()) {
+            if(orderToShow != null) {
+                System.out.println(
+                        "ID: " + orderToShow.getId()
                         + "\nName: " + orderToShow.getName()
                         + "\nDescription: " + orderToShow.getDescription()
                         + "\nDate: " + orderToShow.getDate() + "\n");
@@ -44,34 +127,5 @@ public class StartUI {
             }
         }
         System.out.println("-----------");
-
-        /* Поиск заявок по периоду*/
-        Order[] findOrders = tracker.findOrder("2016.07.30 12:12:12", "2016.08.30 12:12:12");
-        for(Order findOrder: findOrders){
-            if(findOrder != null) {
-                System.out.println("FIND ORDER BY PERIOD:"
-                        + "\nName: " + findOrder.getName()
-                        + "\nDescription: " + findOrder.getDescription()
-                        + "\nDate: " + findOrder.getDate() + "\n-----------");
-            }
-        }
-
-        /* Поиск заявок по подстроке*/
-        findOrders = tracker.findOrder("First");
-        for (Order findOrder: findOrders){
-            if(findOrder != null) {
-                System.out.println("FIND ORDER BY SUBSTRING:"
-                        + "\nName: " + findOrder.getName()
-                        + "\nDescription: " + findOrder.getDescription()
-                        + "\nDate: " + findOrder.getDate() + "\n-----------");
-            }
-        }
-
-        /* Удаление заявки*/
-        if (tracker.removeOrder("First Order")){
-            System.out.println("Order is remove successfully!");
-        } else {
-            System.out.println("Order isn't remove!");
-        }
     }
 }

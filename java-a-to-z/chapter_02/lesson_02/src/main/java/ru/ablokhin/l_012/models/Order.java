@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
  */
 public class Order{
 
+	/* Идентификационный номер заявки*/
+	private String id;
     /* Имя заявки    */
 	private String name;
     /* Описание заявки    */
@@ -29,11 +31,6 @@ public class Order{
 		
 		this.name = name;
 		this.description = description;
-        /*
-        this.date = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")),
-        DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
-        */
-        this.setDate();
 	}
 
     /**
@@ -86,4 +83,7 @@ public class Order{
      */
 	public String[] getComments(){return this.comments;}
 
+	public String getId(){ return this.id;}
+
+	public void setId(String id){ this.id = id; }
 }

@@ -20,11 +20,17 @@ public class TrackerTest {
 
     @Test
     public void editOrder() throws Exception {
+        Order testOrder = new Order("First Order is Changed","First Order Was Changed");
+        testOrder.setId("123456");
+
         Order order = new Order("First Order", "This is the First Order For the Test");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        tracker.editOrder("First Order").setDescription("First Order Change To Second");
-        assertThat(tracker.showOrders()[0].getDescription(), is(order.getDescription()));
+        tracker.showOrders()[0].setId("123456");
+
+        Order checked = tracker.editOrder("123456", "First Order is Changed", "First Order Was Changed");
+
+        assertThat(testOrder.getName(), is(checked.getName()));
     }
 
     @Test
@@ -58,6 +64,7 @@ public class TrackerTest {
         Order order = new Order("First Order", "This is the First Order For the Test");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        assertThat(tracker.removeOrder(order.getName()), is(true));
+        tracker.showOrders()[0].setId("123456");
+        assertThat(tracker.removeOrder(tracker.showOrders()[0].getId()), is(true));
     }
 }
