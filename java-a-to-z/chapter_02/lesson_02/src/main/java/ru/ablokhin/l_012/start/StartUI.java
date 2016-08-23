@@ -31,11 +31,11 @@ public class StartUI {
 
         for (Order orderToShow: tracker.showOrders()) {
             if(orderToShow != null) {
-                System.out.println(
-                        "ID: " + orderToShow.getId()
-                                + "\nName: " + orderToShow.getName()
-                                + "\nDescription: " + orderToShow.getDescription()
-                                + "\nDate: " + orderToShow.getDate() + "\n");
+                System.out.println(String.format("ID: %s", orderToShow.getId()));
+                System.out.println(String.format("Name: %s", orderToShow.getName()));
+                System.out.println(String.format("Description: %s", orderToShow.getDescription()));
+                System.out.println(String.format("Date: %s", orderToShow.getDate()));
+                System.out.println();
                 String[] comments = orderToShow.getComments();
                 for (String comment: comments) {
                     if(comment != null && !comment.equals("") ){
@@ -49,32 +49,34 @@ public class StartUI {
 
         /* Редактирование заявки*/
         Order orderToEdit = tracker.editOrder("2", "Changed Order", "Changed Description");
-        System.out.println("EDIT ORDER:"
-                + "\nID: " + orderToEdit.getId()
-                + "\nName: " + orderToEdit.getName()
-                + "\nDescription: " + orderToEdit.getDescription()
-                + "\nDate: " + orderToEdit.getDate() + "\n-----------");
+        System.out.println("EDIT ORDER:");
+        System.out.println(String.format("ID: %s", orderToEdit.getId()));
+        System.out.println(String.format("Name: %s", orderToEdit.getName()));
+        System.out.println(String.format("Description: %s", orderToEdit.getDescription()));
+        System.out.println(String.format("Date: %s", orderToEdit.getDate()));
+        System.out.println("-----------");
 
         /* Добавление комметария к заявке*/
         if(tracker.commentToOrder("1", "Great Service!")){
-            System.out.println("Add comment successfully!"
-                    + "\n-----------");
+            System.out.println("Add comment successfully!");
+            System.out.println("-----------");
         }
 
         /* Вывод всех заявок*/
         System.out.println("SHOW ORDERS:");
         for (Order orderToShow: tracker.showOrders()) {
             if(orderToShow != null) {
-                System.out.println(
-                        "ID: " + orderToShow.getId()
-                        + "\nName: " + orderToShow.getName()
-                        + "\nDescription: " + orderToShow.getDescription()
-                        + "\nDate: " + orderToShow.getDate() + "\n");
+                System.out.println(String.format("ID: %s", orderToShow.getId()));
+                System.out.println(String.format("Name: %s", orderToShow.getName()));
+                System.out.println(String.format("Description: %s", orderToShow.getDescription()));
+                System.out.println(String.format("Date: %s", orderToShow.getDate()));
+                System.out.println();
                 String[] comments = orderToShow.getComments();
                 for (String comment: comments) {
                     if(comment != null && !comment.equals("") ){
                         System.out.println("Comments:");
-                        System.out.println("- " + comment + "\n");
+                        System.out.println("- " + comment);
+                        System.out.println();
                     }
                 }
             }
@@ -86,11 +88,11 @@ public class StartUI {
         Order[] findOrders = tracker.findOrder("2016.07.30 12:12:12", "2016.08.30 12:12:12");
         for(Order findOrder: findOrders){
             if(findOrder != null) {
-                System.out.println(
-                        "ID: " + findOrder.getId()
-                        + "\nName: " + findOrder.getName()
-                        + "\nDescription: " + findOrder.getDescription()
-                        + "\nDate: " + findOrder.getDate() + "\n-----------");
+                System.out.println(String.format("ID: %s", findOrder.getId()));
+                System.out.println(String.format("Name: %s", findOrder.getName()));
+                System.out.println(String.format("Description: %s", findOrder.getDescription()));
+                System.out.println(String.format("Date: %s", findOrder.getDate()));
+                System.out.println("-----------");
             }
         }
 
@@ -99,11 +101,11 @@ public class StartUI {
         System.out.println("FIND ORDER BY SUBSTRING:");
         for (Order findOrder: findOrders){
             if(findOrder != null) {
-                System.out.println(
-                        "ID: " + findOrder.getId()
-                        + "\nName: " + findOrder.getName()
-                        + "\nDescription: " + findOrder.getDescription()
-                        + "\nDate: " + findOrder.getDate() + "\n-----------");
+                System.out.println(String.format("ID: %s", findOrder.getId()));
+                System.out.println(String.format("Name: %s", findOrder.getName()));
+                System.out.println(String.format("Description: %s", findOrder.getDescription()));
+                System.out.println(String.format("Date: %s", findOrder.getDate()));
+                System.out.println("-----------");
             }
         }
 
@@ -112,16 +114,16 @@ public class StartUI {
         System.out.println("REMOVE ORDER ID = 1:");
         for (Order orderToShow: tracker.showOrders()) {
             if(orderToShow != null) {
-                System.out.println(
-                        "ID: " + orderToShow.getId()
-                        + "\nName: " + orderToShow.getName()
-                        + "\nDescription: " + orderToShow.getDescription()
-                        + "\nDate: " + orderToShow.getDate() + "\n");
+                System.out.println(String.format("ID: %s", orderToShow.getId()));
+                System.out.println(String.format("Name: %s", orderToShow.getName()));
+                System.out.println(String.format("Description: %s", orderToShow.getDescription()));
+                System.out.println(String.format("Date: %s", orderToShow.getDate()));
+                System.out.println();
                 String[] comments = orderToShow.getComments();
                 for (String comment: comments) {
                     if(comment != null && comment.equals("") ){
                         System.out.println("Comments:");
-                        System.out.println("- " + comment + "\n");
+                        System.out.println("- " + comment);
                     }
                 }
             }
