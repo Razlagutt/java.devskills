@@ -38,7 +38,7 @@ public class TrackerTest {
         Order order = new Order("First Order", "This is the First Order For the Test");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        Order[] ordFind = tracker.findOrder("2016.07.30 12:12:12", "2016.08.22 23:23:23");
+        Order[] ordFind = tracker.findOrder("2016.07.30 12:12:12", "2016.08.30 23:23:23");
         assertThat(tracker.showOrders()[0], is(ordFind[0]));
     }
 
