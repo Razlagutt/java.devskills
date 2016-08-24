@@ -12,11 +12,11 @@ import static org.junit.Assert.*;
 public class PointTest {
     @Test
     public void distanceTo() throws Exception {
-        Point pointA = new Point(2, 1);
+        Point pointA = new Point(5, 1);
         Point pointB = new Point(1, 4);
 
         double result = pointA.distanceTo(pointB);
-        assertThat(result, is(2.0));
+        assertThat(result, is(5.0));
     }
 
 }

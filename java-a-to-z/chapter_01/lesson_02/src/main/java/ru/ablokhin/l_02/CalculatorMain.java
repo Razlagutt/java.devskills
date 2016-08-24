@@ -9,12 +9,12 @@ public class CalculatorMain {
         double second= Double.valueOf(args[1]);
         Calculator calculator = new Calculator();
         calculator.add(first, second);
-        System.out.println(first + " + " + second + " = " + calculator.result);
+        System.out.println(first + " + " + second + " = " + calculator.getResult());
         calculator.div(first, second);
-        System.out.println(first + " / " + second + " = " + calculator.result);
+        System.out.println(first + " / " + second + " = " + calculator.getResult());
         calculator.multiple(first, second);
-        System.out.println(first + " * " + second + " = " + calculator.result);
+        System.out.println(first + " * " + second + " = " + calculator.getResult());
         calculator.substruct(first, second);
-        System.out.println(first + " - " + second + " = " + calculator.result);
+        System.out.println(first + " - " + second + " = " + calculator.getResult());
     }
 }

@@ -12,28 +12,28 @@ public class CalculatorTest {
     public void add() throws Exception {
         final Calculator calculator = new Calculator();
         calculator.add(10, 5);
-        assertThat(calculator.result, is(15.0));
+        assertThat(calculator.getResult(), is(15.0));
     }
 
     @Test
     public void substruct() throws Exception {
         final Calculator calculator = new Calculator();
         calculator.substruct(10, 5);
-        assertThat(calculator.result, is(5.0));
+        assertThat(calculator.getResult(), is(5.0));
     }
 
     @Test
     public void multiple() throws Exception {
         final Calculator calculator = new Calculator();
         calculator.multiple(10, 5);
-        assertThat(calculator.result, is(50.0));
+        assertThat(calculator.getResult(), is(50.0));
     }
 
     @Test
     public void div() throws Exception {
         final Calculator calculator = new Calculator();
         calculator.div(10, 5);
-        assertThat(calculator.result, is(2.0));
+        assertThat(calculator.getResult(), is(2.0));
     }
 
 }

@@ -49,9 +49,9 @@ public class Calculator{
 
 	/**
 	 * Вывод результата
-	 * @param result результат арифметической операции
+	 * @return result результат арифметической операции
 	 */	
-	/*public double getResult(){
+	public double getResult(){
 		return this.result;
-	}*/
+	}
 }
