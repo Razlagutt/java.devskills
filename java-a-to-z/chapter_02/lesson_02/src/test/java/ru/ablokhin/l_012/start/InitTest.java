@@ -1,6 +1,6 @@
-package ru.ablokhin.l_013.start;
+package ru.ablokhin.l_012.start;
 
-import ru.ablokhin.l_013.models.Order;
+import ru.ablokhin.l_012.models.Order;
 
 /**
  * Class Init инициализирует работу с заявками
@@ -8,20 +8,21 @@ import ru.ablokhin.l_013.models.Order;
  * @since 24.08.2016
  * @version 3
  */
-public class Init {
+public class InitTest {
 
     private String choice, param1, param2, param3;
+	private Input input;
+	
+	public InitTest(Input input){
+		this.input = input;
+	}
 
-    /**
-     * Метод init() инициализирует работу с заявками
-     */
-    void init(){
-
-        /* Инициализация трекера*/
+	void init(){
+		/* Инициализация трекера*/
         Tracker tracker = new Tracker();
 
         /* Инициализация ввода*/
-        ConsoleInput consoleInput = new ConsoleInput();
+        //ConsoleInput input = new ConsoleInput();
 
         /* Инициализация меню*/
         Menu menu = new Menu();
@@ -40,15 +41,15 @@ public class Init {
                 System.out.println(choice);
             }
             System.out.println("------------------------");
-            System.out.println();
+            //System.out.println();
 
             /* Выбор пользователя*/
-            this.choice = consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ");
+            this.choice = input.ask("Enter The Number 0-7 To Select The Menu Item, Please: ");
 
             /* ADD ORDER*/
             if( this.choice.equals("1") ){
-                this.param1 = consoleInput.ask("Enter The Order Name, Please: ");
-                this.param2 = consoleInput.ask("Enter The Order Description, Please: ");
+                this.param1 = input.ask("Enter The Order Name, Please: ");
+                this.param2 = input.ask("Enter The Order Description, Please: ");
                 Order order = new Order(this.param1, this.param2);
                 tracker.add(order);
                 System.out.println("\nYour Order Is Added Successfully!");
@@ -56,9 +57,9 @@ public class Init {
 
             /* EDIT ORDER*/
             if( this.choice.equals("2") ){
-                this.param1 = consoleInput.ask("Enter The Order ID For Edit, Please: ");
-                this.param2 = consoleInput.ask("Enter The New Order Name, Please: ");
-                this.param3 = consoleInput.ask("Enter The New Order Description, Please: ");
+                this.param1 = tracker.showOrders()[0].getId(); //input.ask("Enter The Order ID For Edit, Please: ");
+                this.param2 = input.ask("Enter The New Order Name, Please: ");
+                this.param3 = input.ask("Enter The New Order Description, Please: ");
                 if(tracker.editOrder(this.param1, this.param2, this.param3)){
                     System.out.println("\nYour Order Is Edited Successfully!");
                 } else {
@@ -68,7 +69,7 @@ public class Init {
 
             /* REMOVE ORDER*/
             if( this.choice.equals("3") ){
-                this.param1 = consoleInput.ask("Enter The Order ID For Remove, Please: ");
+                this.param1 = tracker.showOrders()[0].getId(); //input.ask("Enter The Order ID For Remove, Please: ");
                 if(tracker.removeOrder(this.param1)){
                     System.out.println("\nYour Order Is Removed Successfully!");
                 } else {
@@ -78,8 +79,8 @@ public class Init {
 
             /* FIND ORDER FOR THE PERIOD*/
             if( this.choice.equals("4") ){
-                this.param1 = consoleInput.ask("Enter The Start Date For Search, Please: ");
-                this.param2 = consoleInput.ask("Enter The Finnish Date For Search, Please: ");
+                this.param1 = input.ask("Enter The Start Date For Search, Please: ");
+                this.param2 = input.ask("Enter The Finnish Date For Search, Please: ");
                 Order[] findOrders = tracker.findOrder(this.param1, this.param2);
                 System.out.println("\nFound Orders For The Period:");
                 System.out.println("------------------------");
@@ -95,7 +96,7 @@ public class Init {
 
             /* FIND ORDER BY SUBSTRING*/
             if( this.choice.equals("5") ){
-                this.param1 = consoleInput.ask("Enter The Substring For Search, Please: ");
+                this.param1 = input.ask("Enter The Substring For Search, Please: ");
                 Order[] findOrders = tracker.findOrder(this.param1);
                 System.out.println("\nFound Orders Using Substring:");
                 System.out.println("------------------------");
@@ -133,8 +134,8 @@ public class Init {
 
             /* ADD COMMENT TO ORDER*/
             if( this.choice.equals("7") ){
-                this.param1 = consoleInput.ask("Enter The Order ID For Search The Order To Add The Comment, Please: ");
-                this.param2 = consoleInput.ask("Enter The Comment To The Order, Please: ");
+                this.param1 = tracker.showOrders()[0].getId(); //input.ask("Enter The Order ID For Search The Order To Add The Comment, Please: ");
+                this.param2 = input.ask("Enter The Comment To The Order, Please: ");
                 if(tracker.commentToOrder(this.param1, this.param2)){
                     System.out.println("\nYour Comment Is Added To The Order Successfully!");
                 } else {
@@ -145,5 +146,5 @@ public class Init {
 
         System.out.println("\nThe Application Is Over!");
         System.out.println("Good Bye!");
-    }
+	}
 }

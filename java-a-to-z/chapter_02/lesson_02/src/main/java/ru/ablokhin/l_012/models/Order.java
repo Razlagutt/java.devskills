@@ -66,7 +66,7 @@ public class Order{
     /**
      * Метод устанавливающий дату создания заявки
      */
-	public void setDate(){
+	public void addDate(){
 	    this.date = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")),
                 DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
 	}
@@ -75,7 +75,7 @@ public class Order{
      * Метод для обнуления даты создания заявки. Используется при удалении заявки из базы
      * @param date = null
      */
-    public void setDate(LocalDateTime date){this.date = date;}
+    public void addDate(LocalDateTime date){this.date = date;}
 
     /**
      * Метод возвращающий массив комментариев к заявке

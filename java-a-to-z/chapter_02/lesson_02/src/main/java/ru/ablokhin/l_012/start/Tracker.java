@@ -29,7 +29,7 @@ public class Tracker{
 	 * @return true, если успешно добавлено
 	 */
 	public Order add(Order order){
-		order.setDate();
+		order.addDate();
 		order.setId(generate());
 		this.orders[indx++] = order;
 		return this.orders[indx];
@@ -40,14 +40,14 @@ public class Tracker{
 	 * @param id идентификатор заявки
 	 * @return возвращает найденную заявку
 	 */
-	public Order editOrder(String id, String name, String description){
-		Order result = null;
+	public boolean editOrder(String id, String name, String description){
+		boolean result = false;
         for (Order order : this.orders) {
             if ( order != null && order.getId().equals(id)) {
             	order.setName(name);
 				order.setDescription(description);
-				order.setDate();
-                result = order;
+				order.addDate();
+                result = true;
                 break;
             }
         }
@@ -61,18 +61,21 @@ public class Tracker{
 	 */
 	public boolean removeOrder(String id){
 		boolean result = false;
-		Order[] copiedOrders = new Order[999];
         for ( int i = 0; i != this.indx + 1; i++){
             if ( this.orders[i] != null && this.orders[i].getId().equals(id)) {
 				this.orders[i] = null;
-				System.arraycopy(this.orders, 0, copiedOrders,0, i);
-				System.arraycopy(this.orders, i + 1, copiedOrders, i, this.indx - i);
-				this.orders = copiedOrders;
-				this.indx--;
 				result = true;
 				break;
             }
         }
+
+        for(int i = 0; i < this.orders.length - 1; i++){
+        	if(this.orders[i] == null && this.orders[i+1] != null){
+        		Order tmp = this.orders[i];
+				this.orders[i] = this.orders[i+1];
+				this.orders[i+1] = tmp;
+			}
+		}
 		return result;
 	}
 
@@ -84,8 +87,6 @@ public class Tracker{
 	    int indxShow = 0;
 	    Order[] orderToSshow = new Order[999];
 		for(int i = 0; i != this.indx + 1; i++){
-        /*for(Order order: this.orders){
-            if(order != null) {orderToSshow[indxShow++] = order;}*/
 			orderToSshow[indxShow++] = this.orders[i];
         }
 	    return orderToSshow;

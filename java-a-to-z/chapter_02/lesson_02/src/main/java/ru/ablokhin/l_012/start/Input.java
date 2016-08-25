@@ -1,4 +1,4 @@
-package ru.ablokhin.l_013.start;
+package ru.ablokhin.l_012.start;
 
 public interface Input{
 	String ask(String question);
