@@ -59,7 +59,9 @@ public class Init {
                 this.param1 = consoleInput.ask("Enter The Order ID For Edit, Please: ");
                 this.param2 = consoleInput.ask("Enter The New Order Name, Please: ");
                 this.param3 = consoleInput.ask("Enter The New Order Description, Please: ");
-                if(tracker.editOrder(this.param1, this.param2, this.param3)){
+                Order newOrder = new Order(this.param2, this.param3);
+                newOrder.setId(this.param1);
+                if(tracker.editOrder(newOrder)){
                     System.out.println("\nYour Order Is Edited Successfully!");
                 } else {
                     System.out.println("\nOrder Not Found For Edit! Order ID is Wrong!");

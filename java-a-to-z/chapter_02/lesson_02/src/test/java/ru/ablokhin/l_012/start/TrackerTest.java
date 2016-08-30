@@ -28,7 +28,7 @@ public class TrackerTest {
         tracker.add(order);
         tracker.showOrders()[0].setId("123456");
 
-        boolean checked = tracker.editOrder("123456", "First Order is Changed", "First Order Was Changed");
+        boolean checked = tracker.editOrder(testOrder);
 
         assertTrue(checked);
     }
