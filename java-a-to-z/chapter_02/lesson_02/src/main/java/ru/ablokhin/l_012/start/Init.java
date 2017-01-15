@@ -1,7 +1,5 @@
 package ru.ablokhin.l_012.start;
 
-import ru.ablokhin.l_012.models.Order;
-
 /**
  * Class Init инициализирует работу с заявками
  * @author ablokhin
@@ -10,7 +8,8 @@ import ru.ablokhin.l_012.models.Order;
  */
 public class Init {
 
-    private String choice, param1, param2, param3;
+    /* инициализация ключа действия пользователя*/
+    private int key;
 
     /**
      * Метод init() инициализирует работу с заявками
@@ -24,7 +23,7 @@ public class Init {
         ConsoleInput consoleInput = new ConsoleInput();
 
         /* Инициализация меню*/
-        Menu menu = new Menu();
+        Menu menu = new Menu(consoleInput, tracker);
 
         /* Приветствие*/
         System.out.println(menu.getGreeting());
@@ -32,17 +31,15 @@ public class Init {
         /* Описание программы*/
         System.out.println(menu.getDescription());
 
+        /* Заполнение меню массивом действий пользователя*/
+        menu.fillActions();
+
         do {
             /* Вывод меню*/
-            System.out.println();
-            System.out.println("--------| MENU |--------");
-            for (String choice : menu.getChoices()) {
-                System.out.println(choice);
-            }
-            System.out.println("------------------------");
-            System.out.println();
+            menu.show();
 
             /* Выбор пользователя*/
+<<<<<<< Updated upstream
             this.choice = consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ");
 
             /* ADD ORDER*/
@@ -110,42 +107,14 @@ public class Init {
                     }
                 }
             }
+=======
+            key = Integer.valueOf(consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: "));
+>>>>>>> Stashed changes
 
-            /* SHOW ORDERS*/
-            if( this.choice.equals("6") ){
-                for (Order orderToShow: tracker.showOrders()) {
-                    if(orderToShow != null) {
-                        System.out.println("\nOrder List:");
-                        System.out.println("------------------------");
-                        System.out.println(String.format("ID: %s", orderToShow.getId()));
-                        System.out.println(String.format("Name: %s", orderToShow.getName()));
-                        System.out.println(String.format("Description: %s", orderToShow.getDescription()));
-                        System.out.println(String.format("Date: %s", orderToShow.getDate()));
-                        System.out.println();
-                        String[] comments = orderToShow.getComments();
-                        for (String comment: comments) {
-                            if(comment != null && !comment.equals("") ){
-                                System.out.println("Comments:");
-                                System.out.println("- " + comment);
-                            }
-                        }
-                    }
-                }
-            }
+            /* Осуществление действия по выбору пользователя*/
+            menu.select(key);
 
-            /* ADD COMMENT TO ORDER*/
-            if( this.choice.equals("7") ){
-                this.param1 = consoleInput.ask("Enter The Order ID For Search The Order To Add The Comment, Please: ");
-                this.param2 = consoleInput.ask("Enter The Comment To The Order, Please: ");
-                if(tracker.commentToOrder(this.param1, this.param2)){
-                    System.out.println("\nYour Comment Is Added To The Order Successfully!");
-                } else {
-                    System.out.println("\nOrder Not Found For Comment! Order ID is Wrong!");
-                }
-            }
-        }while( !this.choice.equals("0") );
+        }while( key != 0 );
 
-        System.out.println("\nThe Application Is Over!");
-        System.out.println("Good Bye!");
     }
 }
