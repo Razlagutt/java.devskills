@@ -3,17 +3,17 @@ package ru.ablokhin.l_012.start;
 import ru.ablokhin.l_012.models.Order;
 
 /**
- * Class Menu для работы с меню трекера
+ * Class MenuTest для работы с меню трекера
  * @author ablokhin
  * @since 15.01.2017
  * @version 1
  */
-public class Menu{
+public class MenuTest {
 
     /*Приветсвие пользовател*/
-	private static final String GREETING = "Hello, User!";
+    private static final String GREETING = "Hello, User!";
     /*Описание программы*/
-	private static final String DESCRIPTION = "This Is Order Registration Application.";
+    private static final String DESCRIPTION = "This Is Order Registration Application.";
     /*Инициализация ввода*/
     private Input input;
     /*Инициализация трекера*/
@@ -22,11 +22,11 @@ public class Menu{
     private UserAction[] actions = new UserAction[8];
 
     /**
-     * Констуктор Menu
+     * Констуктор MenuTest
      * @param input пользовательский ввод
      * @param tracker трекер заявок
      */
-    public Menu(Input input, Tracker tracker){
+    public MenuTest(Input input, Tracker tracker){
         this.input = input;
         this.tracker = tracker;
     }
@@ -35,38 +35,38 @@ public class Menu{
      * Метод getGreeting вывод приветствия
      * @return возвращает приветствие пользователя
      */
-	public String getGreeting(){
-		return this.GREETING;
-	}
+    public String getGreeting(){
+        return this.GREETING;
+    }
 
-	/**
+    /**
      * Метод getDescription вывод описания программы
      * @return возвращает описание программы
      */
-	public String getDescription(){
-		return this.DESCRIPTION;
-	}
+    public String getDescription(){
+        return this.DESCRIPTION;
+    }
 
-	/**
+    /**
      * Метод select выбор действия пользователя
      * @param key ключ децсвия пользователя
      */
-	public void select(int key){
-	    this.actions[key].execute(this.input, this.tracker);
+    public void select(int key){
+        this.actions[key].execute(this.input, this.tracker);
     }
 
     /**
      * Метод fillActions заполняет массив пользовательских действий
      */
-	public void fillActions(){
-	    this.actions[0] = new ExitFromApp();
-	    this.actions[1] = new AddOrder();
-        this.actions[2] = new EditOrder();
-        this.actions[3] = new RemoveOrder();
-        this.actions[4] = new FindOrderForThePeriod();
-        this.actions[5] = new FindOrderByString();
-        this.actions[6] = new ShowOrders();
-        this.actions[7] = new AddComment();
+    public void fillActions(){
+        this.actions[0] = new MenuTest.ExitFromApp();
+        this.actions[1] = new MenuTest.AddOrder();
+        this.actions[2] = new MenuTest.EditOrder();
+        this.actions[3] = new MenuTest.RemoveOrder();
+        this.actions[4] = new MenuTest.FindOrderForThePeriod();
+        this.actions[5] = new MenuTest.FindOrderByString();
+        this.actions[6] = new MenuTest.ShowOrders();
+        this.actions[7] = new MenuTest.AddComment();
     }
 
     /**
@@ -159,6 +159,7 @@ public class Menu{
         }
     }
 
+
     /**
      * Class EditOrder описывает действие редактирования заявки
      * @author ablokhin
@@ -181,7 +182,7 @@ public class Menu{
          * @param tracker трекер с заявками
          */
         public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Enter The Order ID For Edit, Please: ");
+            String id = tracker.showOrders()[0].getId();
             String name = input.ask("Enter The New Order Name, Please: ");
             String desc = input.ask("Enter The New Order Description, Please: ");
             if(tracker.editOrder(id, name, desc)){
@@ -223,7 +224,7 @@ public class Menu{
          * @param tracker трекер с заявками
          */
         public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Enter The Order ID For Remove, Please: ");
+            String id = tracker.showOrders()[0].getId();
             if(tracker.removeOrder(id)){
                 System.out.println("\nYour Order Is Removed Successfully!");
             } else {
@@ -408,7 +409,7 @@ public class Menu{
          * @param tracker трекер с заявками
          */
         public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Enter The Order ID For Search The Order To Add The Comment, Please: ");
+            String id = tracker.showOrders()[0].getId();
             Order[] foundOrder = tracker.findById(id);
             if(foundOrder[0] != null){
                 String comment = input.ask("Enter The Comment To The Order, Please: ");

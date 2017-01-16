@@ -21,14 +21,16 @@ public class TrackerTest {
     @Test
     public void editOrder() throws Exception {
         Order testOrder = new Order("First Order is Changed","First Order Was Changed");
+        testOrder.setId("123456");
 
         Order order = new Order("First Order", "This is the First Order For the Test");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        testOrder.setId(tracker.showOrders()[0].getId());
-        tracker.editOrder(testOrder);
+        tracker.showOrders()[0].setId("123456");
 
-        assertThat(tracker.showOrders()[0].getName(), is("First Order is Changed"));
+        boolean checked = tracker.editOrder("123456", "First Order is Changed", "First Order Was Changed");
+
+        assertTrue(checked);
     }
 
     @Test
@@ -36,7 +38,7 @@ public class TrackerTest {
         Order order = new Order("First Order", "This is the First Order For the Test");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        Order[] ordFind = tracker.findOrder("2016.07.30 12:12:12", "2016.12.30 23:23:23");
+        Order[] ordFind = tracker.findOrder("2016.07.30 12:12:12", "2018.08.30 23:23:23");
         assertThat(tracker.showOrders()[0], is(ordFind[0]));
     }
 
@@ -50,11 +52,13 @@ public class TrackerTest {
     }
 
     @Test
-    public void commentToOrder() throws Exception {
+    public void findById() throws Exception {
         Order order = new Order("First Order", "This is the First Order For the Test");
+        order.setId("123456");
         Tracker tracker = new Tracker();
         tracker.add(order);
-        tracker.commentToOrder("First Order", "Great Service!");
+        Order[] ordFind = tracker.findById(order.getId());
+        assertThat(tracker.showOrders()[0], is(ordFind[0]));
     }
 
     @Test

@@ -37,20 +37,20 @@ public class Tracker{
 
 	/**
 	 * Метод editOrder ищет заявку для редактирования
-	 * @param newOrder новая заявка на замену другой
-	 * @return возвращает возвращает истину в случае успешного обновления и ложь в противном случае
+	 * @param id идентификатор заявки
+	 * @return возвращает найденную заявку
 	 */
-	public boolean editOrder(Order newOrder){
+	public boolean editOrder(String id, String name, String description){
 		boolean result = false;
-        for (Order order : this.orders) {
-            if ( order != null && order.getId().equals(newOrder.getId())) {
-				order.setName(newOrder.getName());
-				order.setDescription(newOrder.getDescription());
+		for (Order order : this.orders) {
+			if ( order != null && order.getId().equals(id)) {
+				order.setName(name);
+				order.setDescription(description);
 				order.addDate();
-                result = true;
-                break;
-            }
-        }
+				result = true;
+				break;
+			}
+		}
 		return result;
 	}
 
@@ -148,19 +148,24 @@ public class Tracker{
 
 	/**
 	 * Метод commentToOrder для добавления комментария к заявке
-	 * @param id идентификатор заявки
+	 * @param order заявка
 	 * @param comment комментарий к заявке
-	 * @return true, если комментарий успешно добавлен
 	 */
-	public boolean commentToOrder(String id, String comment){
-		boolean result = false;
-		if( !comment.equals("") ) {
-			for (Order order : this.orders) {
-				if (order != null && order.getId().equals(id)) {
-					order.getComments()[commentIndx++] = comment;
-					result = true;
-					break;
-				}
+	public void commentToOrder(Order order, String comment){
+
+		order.getComments()[commentIndx++] = comment;
+	}
+
+	/**
+	 * Метод commentToOrder для добавления комментария к заявке
+	 * @param id заявки
+	 */
+	public Order[] findById(String id){
+		Order[] result = new Order[1];
+		for (Order order : this.orders){
+			if (order != null && order.getId().equals(id)){
+				result[0] = order;
+				break;
 			}
 		}
 		return result;
