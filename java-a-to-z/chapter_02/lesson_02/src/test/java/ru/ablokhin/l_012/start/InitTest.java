@@ -20,7 +20,7 @@ public class InitTest {
         Tracker tracker = new Tracker();
 
         /* Инициализация меню*/
-        MenuTest menu = new MenuTest(input, tracker);
+        Menu menu = new Menu(input, tracker);
 
         /* Приветствие*/
         System.out.println(menu.getGreeting());

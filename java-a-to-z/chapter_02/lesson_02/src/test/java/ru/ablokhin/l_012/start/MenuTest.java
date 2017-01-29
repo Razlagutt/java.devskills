@@ -1,431 +1,99 @@
 package ru.ablokhin.l_012.start;
 
+import org.junit.Test;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 import ru.ablokhin.l_012.models.Order;
 
 /**
- * Class MenuTest для работы с меню трекера
+ * Class MenuTest для тестирования работы с меню трекера
  * @author ablokhin
  * @since 15.01.2017
  * @version 1
  */
 public class MenuTest {
 
-    /*Приветсвие пользовател*/
-    private static final String GREETING = "Hello, User!";
-    /*Описание программы*/
-    private static final String DESCRIPTION = "This Is Order Registration Application.";
-    /*Инициализация ввода*/
-    private Input input;
-    /*Инициализация трекера*/
-    private Tracker tracker;
-    /*Инициализация массива пользовательских действий*/
-    private UserAction[] actions = new UserAction[8];
+    private Tracker tracker = new Tracker();
 
-    /**
-     * Констуктор MenuTest
-     * @param input пользовательский ввод
-     * @param tracker трекер заявок
-     */
-    public MenuTest(Input input, Tracker tracker){
-        this.input = input;
-        this.tracker = tracker;
+    private void autoTest(StubInput answers, Tracker tracker){
+        Menu menu = new Menu(answers, this.tracker);
+        menu.fillActions();
+        int key = Integer.valueOf(answers.ask("Enter The Number 0-7 To Select The Menu Item, Please: "));
+        menu.select(key);
     }
 
-    /**
-     * Метод getGreeting вывод приветствия
-     * @return возвращает приветствие пользователя
-     */
-    public String getGreeting(){
-        return this.GREETING;
+    @Test
+    public void addOrderTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getName(), is("First Order"));
     }
 
-    /**
-     * Метод getDescription вывод описания программы
-     * @return возвращает описание программы
-     */
-    public String getDescription(){
-        return this.DESCRIPTION;
+    @Test
+    public void editOrderTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "2", this.tracker.showOrders()[0].getId(), "Edited Order", "Edited Description", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getName(), is("Edited Order"));
     }
 
-    /**
-     * Метод select выбор действия пользователя
-     * @param key ключ децсвия пользователя
-     */
-    public void select(int key){
-        this.actions[key].execute(this.input, this.tracker);
+    @Test
+    public void showOrdersTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "1", "Second Order", "Second Description", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getName(), is("First Order"));
+        assertThat(this.tracker.showOrders()[1].getName(), is("Second Order"));
     }
 
-    /**
-     * Метод fillActions заполняет массив пользовательских действий
-     */
-    public void fillActions(){
-        this.actions[0] = new MenuTest.ExitFromApp();
-        this.actions[1] = new MenuTest.AddOrder();
-        this.actions[2] = new MenuTest.EditOrder();
-        this.actions[3] = new MenuTest.RemoveOrder();
-        this.actions[4] = new MenuTest.FindOrderForThePeriod();
-        this.actions[5] = new MenuTest.FindOrderByString();
-        this.actions[6] = new MenuTest.ShowOrders();
-        this.actions[7] = new MenuTest.AddComment();
+    @Test
+    public void findByPeriodTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "4", "2016.08.01 12:12:12", "2017.08.30 12:12:12", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getName(), is("First Order"));
     }
 
-    /**
-     * Метод show выводит меню на экран
-     */
-    public void show(){
-
-        System.out.println();
-        System.out.println("--------| MENU |--------");
-        for (UserAction action : this.actions){
-            if (action != null){
-                System.out.println(action.info());
-            }
-        }
-        System.out.println("------------------------");
-        System.out.println();
+    @Test
+    public void findBySubStringTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "5", "di", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getName(), is("First Order"));
     }
 
-
-    /**
-     * Class ExitFromApp описывает действие выхода из программы
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class ExitFromApp implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 0 - ключ действия выхода из программы
-         */
-        public int key() {
-            return 0;
-        }
-
-        /**
-         * Метод execute осуществляет действие выхода пользователя из программы
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("\nThe Application Is Over!");
-            System.out.println("Good Bye!");
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Exit");
-        }
+    @Test
+    public void addCommentTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "7", this.tracker.showOrders()[0].getId(), "First Comment", "0"});
+        autoTest(stubInput, this.tracker);
+        assertThat(this.tracker.showOrders()[0].getComments()[0], is("First Comment"));
     }
 
-
-    /**
-     * Class AddOrder описывает действие создания заявки
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class AddOrder implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 1 - ключ действия создания заявки
-         */
-        public int key() {
-            return 1;
-        }
-
-        /**
-         * Метод execute осуществляет действие создания заявки
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Enter The Order Name, Please: ");
-            String desc = input.ask("Enter The Order Description, Please: ");
-            tracker.add(new Order(name, desc));
-            System.out.println("\nYour Order Is Added Successfully!");
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add Order");
-        }
-    }
-
-
-    /**
-     * Class EditOrder описывает действие редактирования заявки
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    class EditOrder implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 2 - ключ действия редактирования заявки
-         */
-        public int key() {
-            return 2;
-        }
-
-        /**
-         * Метод execute осуществляет действие редактирования заявки
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String id = tracker.showOrders()[0].getId();
-            String name = input.ask("Enter The New Order Name, Please: ");
-            String desc = input.ask("Enter The New Order Description, Please: ");
-            if(tracker.editOrder(id, name, desc)){
-                System.out.println("\nYour Order Is Edited Successfully!");
-            } else {
-                System.out.println("\nOrder Not Found For Edit! Order ID is Wrong!");
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit Order");
-        }
-    }
-
-
-    /**
-     * Class RemoveOrder описывает действие удаления заявки
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class RemoveOrder implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 3 - ключ действия удаления заявки
-         */
-        public int key() {
-            return 3;
-        }
-
-        /**
-         * Метод execute осуществляет действие удаления заявки
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String id = tracker.showOrders()[0].getId();
-            if(tracker.removeOrder(id)){
-                System.out.println("\nYour Order Is Removed Successfully!");
-            } else {
-                System.out.println("\nOrder Not Found For Remove! Order ID is Wrong!");
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Remove Order");
-        }
-    }
-
-
-    /**
-     * Class FindOrderForThePeriod описывает действие поиска заявок по периоду
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class FindOrderForThePeriod implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 4 - ключ действия поиска заявок по периоду
-         */
-        public int key() {
-            return 4;
-        }
-
-        /**
-         * Метод execute осуществляет действие поиска заявок по периоду
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String dateFrom = input.ask("Enter The Start Date For Search, Please: ");
-            String dateTo = input.ask("Enter The Finnish Date For Search, Please: ");
-            Order[] findOrders = tracker.findOrder(dateFrom, dateTo);
-            System.out.println("\nFound Orders For The Period:");
-            System.out.println("------------------------");
-            for(Order findOrder: findOrders){
-                if(findOrder != null) {
-                    System.out.println(String.format("ID: %s", findOrder.getId()));
-                    System.out.println(String.format("Name: %s", findOrder.getName()));
-                    System.out.println(String.format("Description: %s", findOrder.getDescription()));
-                    System.out.println(String.format("Date: %s", findOrder.getDate()));
-                }
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find Order For The Period (yyyy.mm.dd HH:mm:ss)");
-        }
-    }
-
-
-    /**
-     * Class FindOrderByString описывает действие поиска заявок по строке
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class FindOrderByString implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 5 - ключ действия поиска заявок по строке
-         */
-        public int key() {
-            return 5;
-        }
-
-        /**
-         * Метод execute осуществляет действие поиска заявок по строке
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String substring = input.ask("Enter The Substring For Search, Please: ");
-            Order[] findOrders = tracker.findOrder(substring);
-            System.out.println("\nFound Orders Using Substring:");
-            System.out.println("------------------------");
-            for(Order findOrder: findOrders){
-                if(findOrder != null) {
-                    System.out.println(String.format("ID: %s", findOrder.getId()));
-                    System.out.println(String.format("Name: %s", findOrder.getName()));
-                    System.out.println(String.format("Description: %s", findOrder.getDescription()));
-                    System.out.println(String.format("Date: %s", findOrder.getDate()));
-                }
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find Order By String");
-        }
-    }
-
-
-    /**
-     * Class ShowOrders описывает действие вывода всех заявок на жкран
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private static class ShowOrders implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 6 - ключ действия вывода всех заявок на жкран
-         */
-        public int key() {
-            return 6;
-        }
-
-        /**
-         * Метод execute осуществляет действие вывода всех заявок на жкран
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            for (Order orderToShow: tracker.showOrders()) {
-                if(orderToShow != null) {
-                    System.out.println("\nOrder List:");
-                    System.out.println("------------------------");
-                    System.out.println(String.format("ID: %s", orderToShow.getId()));
-                    System.out.println(String.format("Name: %s", orderToShow.getName()));
-                    System.out.println(String.format("Description: %s", orderToShow.getDescription()));
-                    System.out.println(String.format("Date: %s", orderToShow.getDate()));
-                    System.out.println();
-                    String[] comments = orderToShow.getComments();
-                    for (String comment: comments) {
-                        if(comment != null && !comment.equals("") ){
-                            System.out.println("Comments:");
-                            System.out.println("- " + comment);
-                        }
-                    }
-                }
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show Order List");
-        }
-    }
-
-
-    /**
-     * Class AddComment описывает действие добавления комментария к заявке
-     * @author ablokhin
-     * @since 15.01.2017
-     * @version 1
-     */
-    private class AddComment implements UserAction{
-
-        /**
-         * Метод key возвращает ключ действия пользователя
-         * return возвращает 7 - ключ действия добавления комментария к заявке
-         */
-        public int key() {
-            return 7;
-        }
-
-        /**
-         * Метод execute осуществляет действие добавления комментария к заявке
-         * @param input ввод пользователя
-         * @param tracker трекер с заявками
-         */
-        public void execute(Input input, Tracker tracker) {
-            String id = tracker.showOrders()[0].getId();
-            Order[] foundOrder = tracker.findById(id);
-            if(foundOrder[0] != null){
-                String comment = input.ask("Enter The Comment To The Order, Please: ");
-                tracker.commentToOrder(foundOrder[0], comment);
-                System.out.println("\nYour Comment Is Added To The Order Successfully!");
-            } else {
-                System.out.println("\nThe Order Was Not Found For Your Comment! Order ID is Wrong!");
-            }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add The Comment To Order");
-        }
+    @Test
+    public void removeOrderTest() throws Exception {
+        StubInput stubInput = new StubInput(new String[] {
+                "1", "First Order", "First Description", "0"});
+        autoTest(stubInput, this.tracker);
+        stubInput = new StubInput(new String[] {
+                "3", this.tracker.showOrders()[0].getId()});
+        autoTest(stubInput, this.tracker);
+        assertNull(this.tracker.showOrders()[0]);
     }
 }

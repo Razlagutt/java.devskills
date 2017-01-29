@@ -85,11 +85,11 @@ public class Tracker{
 	 */
 	public Order[] showOrders(){
 	    int indxShow = 0;
-	    Order[] orderToSshow = new Order[999];
+	    Order[] orderToShow = new Order[999];
 		for(int i = 0; i != this.indx + 1; i++){
-			orderToSshow[indxShow++] = this.orders[i];
+			orderToShow[indxShow++] = this.orders[i];
         }
-	    return orderToSshow;
+	    return orderToShow;
 	}
 
 	/**
