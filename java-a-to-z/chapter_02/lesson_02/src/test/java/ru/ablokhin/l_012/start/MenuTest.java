@@ -16,7 +16,7 @@ public class MenuTest {
     private Tracker tracker = new Tracker();
 
     private void autoTest(StubInput answers, Tracker tracker){
-        Menu menu = new Menu(answers, this.tracker);
+        Menu menu = new Menu(answers, tracker);
         menu.fillActions();
         int key = Integer.valueOf(answers.ask("Enter The Number 0-7 To Select The Menu Item, Please: "));
         menu.select(key);
