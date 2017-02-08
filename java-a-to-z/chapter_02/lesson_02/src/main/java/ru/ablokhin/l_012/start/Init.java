@@ -20,7 +20,7 @@ public class Init {
         Tracker tracker = new Tracker();
 
         /* Инициализация ввода*/
-        ConsoleInput consoleInput = new ConsoleInput();
+        ConsoleInput consoleInput = new ValidateInput();
 
         /* Инициализация меню*/
         Menu menu = new Menu(consoleInput, tracker);
@@ -32,17 +32,14 @@ public class Init {
         System.out.println(menu.getDescription());
 
         /* Заполнение меню массивом действий пользователя*/
-        menu.fillActions();
+        UserAction[] actionRange = menu.fillActions();
 
         do {
             /* Вывод меню*/
             menu.show();
 
-            /* Выбор пользователя*/
-            key = Integer.valueOf(consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: "));
-
             /* Осуществление действия по выбору пользователя*/
-            menu.select(key);
+            menu.select(consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ", actionRange));
 
         }while( key != 0 );
     }

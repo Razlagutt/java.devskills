@@ -58,7 +58,7 @@ public class Menu{
     /**
      * Метод fillActions заполняет массив пользовательских действий
      */
-	public void fillActions(){
+	public UserAction[] fillActions(){
 	    this.actions[0] = new ExitFromApp();
 	    this.actions[1] = new AddOrder();
         this.actions[2] = new EditOrder();
@@ -67,6 +67,8 @@ public class Menu{
         this.actions[5] = new FindOrderByString();
         this.actions[6] = new ShowOrders();
         this.actions[7] = new AddComment();
+
+        return this.actions;
     }
 
     /**

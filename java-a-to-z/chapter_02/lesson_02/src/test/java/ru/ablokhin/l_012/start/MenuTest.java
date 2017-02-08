@@ -3,7 +3,6 @@ package ru.ablokhin.l_012.start;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import ru.ablokhin.l_012.models.Order;
 
 /**
  * Class MenuTest для тестирования работы с меню трекера
@@ -17,8 +16,8 @@ public class MenuTest {
 
     private void autoTest(StubInput answers, Tracker tracker){
         Menu menu = new Menu(answers, tracker);
-        menu.fillActions();
-        int key = Integer.valueOf(answers.ask("Enter The Number 0-7 To Select The Menu Item, Please: "));
+        UserAction[] actions = menu.fillActions();
+        int key = Integer.valueOf(answers.ask("Enter The Number 0-7 To Select The Menu Item, Please: ", actions));
         menu.select(key);
     }
 

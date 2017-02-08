@@ -12,4 +12,20 @@ public class StubInput implements Input{
 	public String ask(String question){
 		return answers[indx++];
 	}
+
+	public int ask(String question, UserAction[] actionRange){
+		int key = Integer.valueOf(this.ask(question));
+		boolean exist = false;
+		for(UserAction action : actionRange){
+			if(action.key() == key){
+				exist = true;
+				break;
+			}
+		}
+		if(exist){
+			return key;
+		} else {
+			throw new MenuOutException("Out Of Menu Range");
+		}
+	}
 }
