@@ -57,6 +57,7 @@ public class Menu{
 
     /**
      * Метод fillActions заполняет массив пользовательских действий
+     * @return возвращает массив возможных действий (меню)
      */
 	public UserAction[] fillActions(){
 	    this.actions[0] = new ExitFromApp();

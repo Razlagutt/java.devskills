@@ -1,19 +1,13 @@
 package ru.ablokhin.l_012.start;
 
 /**
- * Class ValidateInput обрабатывает ввод пользовательских данных
- * @author ablokhin
- * @since 10.02.2017
- * @version 1
+ * Created by Andrey on 10.02.2017.
  */
-public class ValidateInput extends ConsoleInput {
+public class StubValidateInput extends StubInput {
+    public StubValidateInput(String[] answers) {
+        super(answers);
+    }
 
-    /**
-     * Перегруженный унаследованный метод ask задает вопрос пользователю
-     * @param question вопрос пользователю
-     * @param actionRange массив ответов
-     * @return возвращает ключ ответа из массива ответов
-     */
     public int ask(String question, UserAction[] actionRange) {
         boolean invalid = true;
         int value = -1;
