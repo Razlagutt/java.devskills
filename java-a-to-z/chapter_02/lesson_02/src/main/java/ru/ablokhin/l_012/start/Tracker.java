@@ -37,21 +37,15 @@ public class Tracker{
 
 	/**
 	 * Метод editOrder ищет заявку для редактирования
-	 * @param id идентификатор заявки
-	 * @return возвращает найденную заявку
+	 * @param order новая заявка для замены старой
 	 */
-	public boolean editOrder(String id, String name, String description){
-		boolean result = false;
-		for (Order order : this.orders) {
-			if ( order != null && order.getId().equals(id)) {
-				order.setName(name);
-				order.setDescription(description);
-				order.addDate();
-				result = true;
+	public void editOrder(Order order){
+		for (int i = 0; i < orders.length; i++) {
+			if (orders[i] != null && order.getId().equals(orders[i].getId())) {
+				orders[i] = order;
 				break;
 			}
 		}
-		return result;
 	}
 
 	/**

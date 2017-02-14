@@ -33,7 +33,23 @@ public class Init {
 
         /* Заполнение меню массивом действий пользователя*/
         UserAction[] actionRange = menu.fillActions();
+        /*UserAction someAction = new UserAction() {
+            @Override
+            public int key() {
+                return 3;
+            }
 
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                //some execute
+            }
+
+            @Override
+            public String info() {
+                return "8. Some Action";
+            }
+        };
+        menu.addAction(someAction);*/
         do {
             /* Вывод меню*/
             menu.show();

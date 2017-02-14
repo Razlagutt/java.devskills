@@ -19,7 +19,9 @@ public class Menu{
     /*Инициализация трекера*/
     private Tracker tracker;
     /*Инициализация массива пользовательских действий*/
-    private UserAction[] actions = new UserAction[8];
+    private UserAction[] actions = new UserAction[9];
+
+    private int indx = 0;
 
     /**
      * Констуктор Menu
@@ -60,16 +62,20 @@ public class Menu{
      * @return возвращает массив возможных действий (меню)
      */
 	public UserAction[] fillActions(){
-	    this.actions[0] = new ExitFromApp();
-	    this.actions[1] = new AddOrder();
-        this.actions[2] = new EditOrder();
-        this.actions[3] = new RemoveOrder();
-        this.actions[4] = new FindOrderForThePeriod();
-        this.actions[5] = new FindOrderByString();
-        this.actions[6] = new ShowOrders();
-        this.actions[7] = new AddComment();
+	    this.actions[indx++] = new ExitFromApp();
+	    this.actions[indx++] = new AddOrder();
+        this.actions[indx++] = new EditOrder();
+        this.actions[indx++] = new RemoveOrder();
+        this.actions[indx++] = new FindOrderForThePeriod();
+        this.actions[indx++] = new FindOrderByString();
+        this.actions[indx++] = new ShowOrders();
+        this.actions[indx++] = new AddComment();
 
         return this.actions;
+    }
+
+    protected void addAction(UserAction action){
+	    this.actions[indx++] = action;
     }
 
     /**
@@ -185,10 +191,14 @@ public class Menu{
          */
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter The Order ID For Edit, Please: ");
-            String name = input.ask("Enter The New Order Name, Please: ");
-            String desc = input.ask("Enter The New Order Description, Please: ");
-            if(tracker.editOrder(id, name, desc)){
-                System.out.println("\nYour Order Is Edited Successfully!");
+            Order[] foundOrder = tracker.findById(id);
+            if(foundOrder[0] != null){
+                String name = input.ask("Enter The New Order Name, Please: ");
+                String desc = input.ask("Enter The New Order Description, Please: ");
+                Order order = new Order(name, desc);
+                order.setId(id);
+                tracker.editOrder(order);
+                System.out.println("\n\nYour Order Is Edited Successfully!");
             } else {
                 System.out.println("\nOrder Not Found For Edit! Order ID is Wrong!");
             }

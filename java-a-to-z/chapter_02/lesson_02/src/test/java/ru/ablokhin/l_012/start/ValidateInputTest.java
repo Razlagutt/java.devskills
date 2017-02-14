@@ -19,6 +19,23 @@ public class ValidateInputTest {
         Tracker tracker = new Tracker();
         Menu menu = new Menu(validateInput, tracker);
         UserAction[] actions = menu.fillActions();
+        UserAction someAction = new UserAction() {
+            @Override
+            public int key() {
+                return 3;
+            }
+
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                //some execute
+            }
+
+            @Override
+            public String info() {
+                return "8. Some Action";
+            }
+        };
+        menu.addAction(someAction);
         value = validateInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ", actions);
     }
 
