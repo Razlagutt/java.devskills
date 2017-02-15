@@ -31,6 +31,7 @@ public class Order{
 		
 		this.name = name;
 		this.description = description;
+		this.addDate();
 	}
 
     /**

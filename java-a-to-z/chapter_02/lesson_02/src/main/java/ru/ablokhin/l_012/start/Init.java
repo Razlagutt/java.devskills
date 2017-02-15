@@ -33,7 +33,7 @@ public class Init {
 
         /* Заполнение меню массивом действий пользователя*/
         UserAction[] actionRange = menu.fillActions();
-        /*UserAction someAction = new UserAction() {
+        UserAction someAction = new UserAction() {
             @Override
             public int key() {
                 return 3;
@@ -49,13 +49,14 @@ public class Init {
                 return "8. Some Action";
             }
         };
-        menu.addAction(someAction);*/
+        menu.addAction(someAction);
         do {
             /* Вывод меню*/
             menu.show();
 
             /* Осуществление действия по выбору пользователя*/
-            menu.select(consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ", actionRange));
+            key = consoleInput.ask("Enter The Number 0-7 To Select The Menu Item, Please: ", actionRange);
+            menu.select(key);
 
         }while( key != 0 );
     }

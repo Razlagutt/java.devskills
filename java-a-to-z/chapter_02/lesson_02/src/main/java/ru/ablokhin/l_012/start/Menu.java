@@ -62,14 +62,14 @@ public class Menu{
      * @return возвращает массив возможных действий (меню)
      */
 	public UserAction[] fillActions(){
-	    this.actions[indx++] = new ExitFromApp();
-	    this.actions[indx++] = new AddOrder();
-        this.actions[indx++] = new EditOrder();
-        this.actions[indx++] = new RemoveOrder();
-        this.actions[indx++] = new FindOrderForThePeriod();
-        this.actions[indx++] = new FindOrderByString();
-        this.actions[indx++] = new ShowOrders();
-        this.actions[indx++] = new AddComment();
+	    this.actions[indx++] = new ExitFromApp("Exit");
+	    this.actions[indx++] = new AddOrder("Add Order");
+        this.actions[indx++] = new EditOrder("Edit Order");
+        this.actions[indx++] = new RemoveOrder("Remove Order");
+        this.actions[indx++] = new FindOrderForThePeriod("Find Order For The Period (yyyy.mm.dd HH:mm:ss)");
+        this.actions[indx++] = new FindOrderByString("Find Order By String");
+        this.actions[indx++] = new ShowOrders("Show Order List");
+        this.actions[indx++] = new AddComment("Add The Comment To Order");
 
         return this.actions;
     }
@@ -101,7 +101,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class ExitFromApp implements UserAction{
+    private class ExitFromApp extends BaseAction{
+
+        public ExitFromApp(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -120,14 +124,6 @@ public class Menu{
             System.out.println("\nThe Application Is Over!");
             System.out.println("Good Bye!");
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Exit");
-        }
     }
 
 
@@ -137,7 +133,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class AddOrder implements UserAction{
+    private class AddOrder extends BaseAction{
+
+        public AddOrder(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -158,14 +158,6 @@ public class Menu{
             tracker.add(new Order(name, desc));
             System.out.println("\nYour Order Is Added Successfully!");
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add Order");
-        }
     }
 
     /**
@@ -174,7 +166,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    class EditOrder implements UserAction{
+    class EditOrder extends BaseAction{
+
+        public EditOrder(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -203,14 +199,6 @@ public class Menu{
                 System.out.println("\nOrder Not Found For Edit! Order ID is Wrong!");
             }
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit Order");
-        }
     }
 
 
@@ -220,7 +208,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class RemoveOrder implements UserAction{
+    private class RemoveOrder extends BaseAction{
+
+        public RemoveOrder(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -243,14 +235,6 @@ public class Menu{
                 System.out.println("\nOrder Not Found For Remove! Order ID is Wrong!");
             }
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Remove Order");
-        }
     }
 
 
@@ -260,7 +244,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class FindOrderForThePeriod implements UserAction{
+    private class FindOrderForThePeriod extends BaseAction{
+
+        public FindOrderForThePeriod(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -290,14 +278,6 @@ public class Menu{
                 }
             }
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find Order For The Period (yyyy.mm.dd HH:mm:ss)");
-        }
     }
 
 
@@ -307,7 +287,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class FindOrderByString implements UserAction{
+    private class FindOrderByString extends BaseAction{
+
+        public FindOrderByString(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -336,14 +320,6 @@ public class Menu{
                 }
             }
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find Order By String");
-        }
     }
 
 
@@ -353,7 +329,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private static class ShowOrders implements UserAction{
+    private static class ShowOrders extends BaseAction{
+
+        public ShowOrders(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -388,14 +368,6 @@ public class Menu{
                 }
             }
         }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show Order List");
-        }
     }
 
 
@@ -405,7 +377,11 @@ public class Menu{
      * @since 15.01.2017
      * @version 1
      */
-    private class AddComment implements UserAction{
+    private class AddComment extends BaseAction{
+
+        public AddComment(String name){
+            super(name);
+        }
 
         /**
          * Метод key возвращает ключ действия пользователя
@@ -430,14 +406,6 @@ public class Menu{
             } else {
                 System.out.println("\nThe Order Was Not Found For Your Comment! Order ID is Wrong!");
             }
-        }
-
-        /**
-         * Метод info сообщает о выбранном действии пользователя
-         * @return возвращает ключ и значение действия пользователя
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add The Comment To Order");
         }
     }
 }
