@@ -29,10 +29,13 @@ public class Bishop extends Figure {
         int finalPosOfFigureHor = posOfFigureHor + distanceVert;
 
         //Сравнить совпадают ли возможная позиция фигуры с требуемой
-        if ( (finalPosOfFigureVert == possimblePosOfFigureVert) && (finalPosOfFigureHor == possimblePosOfFigureHor) ){
+        if ( (finalPosOfFigureVert == possimblePosOfFigureVert)
+                && (finalPosOfFigureHor == possimblePosOfFigureHor)
+                && (this.position.getVertical() != dist.getVertical())
+                && (this.position.getHorisontal() != dist.getHorisontal()) ){
             //Создать массив движения фигуры
-            for (int i = 0; i <= distanceVert; i++){
-                cells[i] = new Cell(posOfFigureVert + i, posOfFigureHor + i);
+            for (int i = 0; i < distanceVert; i++){
+                cells[i] = new Cell(posOfFigureVert + i + 1, posOfFigureHor + i + 1);
             }
             return cells;
         } else {

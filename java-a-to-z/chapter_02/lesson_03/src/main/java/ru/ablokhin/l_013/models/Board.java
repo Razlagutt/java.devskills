@@ -14,28 +14,31 @@ public class Board {
         boolean isNotOccupied = true;
         boolean isMove = false;
         boolean isFound = false;
-        for (int i = 0; i < figures.length; i++) {
+        for (int i = 0; i < this.figures.length; i++) {
 
             //Проверить наличие фигуры в массиве по source координатам
-            if ( figures[i].equals(source)) {
+            if ( (this.figures[i].position.getHorisontal() == source.getHorisontal())
+                    && (this.figures[i].position.getVertical() == source.getVertical()) ) {
                 isFound = true;
 
                 //Проверить возможность поместить фигуру в dist ячейку
-                Cell[] cells = figures[i].way(dist);
-                for (Cell cell : cells) {
+                Cell[] cells = this.figures[i].way(dist);
+                //for (int j = 1; j < cells.length; j++) {
+                for (Cell cell : cells){
                     if (cell != null){
                         isMove = true;
 
                         //Проверить, что путь свободен
-                        for (Figure figure : this.figures) {
-                            if ( figure.equals(cell) ){
+                        for (Figure figure1 : this.figures) {
+                            if ( (figure1.position.getHorisontal() == cell.getHorisontal())
+                                    && (figure1.position.getVertical() == cell.getVertical()) ){
                                 isNotOccupied = false;
                             }
                         }
                     }
                 }
                 if (isNotOccupied && isMove && isFound){
-                    figures[i] = figures[i].clone(dist);
+                    this.figures[i] = this.figures[i].clone(dist);
                     break;
                 }
             }
