@@ -18,5 +18,7 @@ public abstract class Figure{
         this.position = position;
     }
 
-    abstract Cell[] way(Cell dist);
+    abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
+
+    abstract Figure clone(Cell cell);
 }
