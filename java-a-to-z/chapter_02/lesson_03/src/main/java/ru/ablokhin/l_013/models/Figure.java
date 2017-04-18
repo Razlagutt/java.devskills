@@ -1,24 +1,36 @@
 package ru.ablokhin.l_013.models;
 
-
+/**
+ * Класс для определения шахматной фигуры
+ * @author ablokhin
+ * @since 31.03.2017
+ * @version 1
+ */
 public abstract class Figure{
 
-    /*
-     * Pawn = Пешка
-     * Rook = Ладья
-     * Knight = Конь
-     * Bishop = Слон
-     * Queen = Ферзь
-     * King = Король
-     */
-
+    //Изначальная позиция фигуры на щахматной доске
     final Cell position;
 
-    public Figure(Cell position){
+    /**
+     * Конструктор фигуры
+     * @param position изначальная позиция фигуры на щахматной доске
+     */
+    protected Figure(Cell position){
         this.position = position;
     }
 
-    abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
+    /**
+     * Метод проверяет возможность переместить фигуру в заданную клетку
+     * @param dist клетка, куда надо переместить фигуру
+     * @return массив клеток, по которым будет перемещаться фигура
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру в заданную клетку
+     */
+    protected abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
 
-    abstract Figure clone(Cell cell);
+    /**
+     * Метод перемещает фигуру в заданную клетку
+     * @param cell заданная клетка для перемещения
+     * @return возвращает фигуру с новым местоположением на доске
+     */
+    protected abstract Figure clone(Cell cell);
 }

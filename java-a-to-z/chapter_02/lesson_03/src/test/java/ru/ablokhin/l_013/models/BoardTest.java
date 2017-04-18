@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class BoardTest {
     @Test
     public void move() throws Exception {
-        Figure figure = new Bishop(new Cell(3,6));
+        Figure figure = new Bishop(new Cell(8,2));
         Figure bishop = new Bishop(new Cell(1,1));
         Figure[] figures = new Figure[2];
         figures[0] = figure;

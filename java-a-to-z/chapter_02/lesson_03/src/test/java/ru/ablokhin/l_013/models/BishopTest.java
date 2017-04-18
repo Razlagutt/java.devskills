@@ -20,7 +20,7 @@ public class BishopTest {
         Cell cell1 = new Cell(5,5);
         Bishop bishop = new Bishop(cell);
         Cell[] cells = bishop.way(cell1);
-        assertThat(cellsArr[3].getHorisontal(), is(cells[3].getHorisontal()));
+        assertThat(cellsArr[3].getHorizontal(), is(cells[3].getHorizontal()));
     }
 
 }

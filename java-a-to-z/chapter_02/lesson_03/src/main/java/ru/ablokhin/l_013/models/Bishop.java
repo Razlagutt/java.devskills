@@ -1,41 +1,56 @@
 package ru.ablokhin.l_013.models;
 
-import java.math.*;
-
 /**
- * Created by Blokhin on 30.03.2017.
+ * Класс для определения шахматной фигуры Слон
+ * @author ablokhin
+ * @since 31.03.2017
+ * @version 1
  */
 public class Bishop extends Figure {
+
+    /**
+     * Конструктор фигуры Слон
+     * @param position изначальная позиция фигуры Слон на щахматной доске
+     */
     public Bishop(Cell position) {
         super(position);
     }
 
-    public Cell[] way(Cell dist) throws ImpossibleMoveException {
+    /**
+     * Метод проверяет возможность переместить фигуру Слон в заданную клетку
+     * @param dist клетка, куда надо переместить фигуру Слон
+     * @return cells массив клеток, по которым будет перемещаться фигура Слон
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру Слон в заданную клетку
+     */
+    protected Cell[] way(Cell dist) throws ImpossibleMoveException {
 
+        //Инициализация массива клеток
         Cell[] cells = new Cell[8];
-        //Получить текущую позицию фигуры
-        int posOfFigureVert = this.position.getVertical();
-        int posOfFigureHor = this.position.getHorisontal();
 
-        //Получить требуемую позицию фигуры
-        int possimblePosOfFigureVert = dist.getVertical();
-        int possimblePosOfFigureHor = dist.getHorisontal();
+        //Получить координаты фигуры
+        int verticalPosition = this.position.getVertical();
+        int horizontalPosition = this.position.getHorizontal();
 
-        //Получить расстояние между текущей и требуемой позициями фигуры по вертикали
-        int distanceVert = Math.abs(posOfFigureVert - possimblePosOfFigureVert);
+        //Получить заданные координаты фигуры
+        int specifiedVerticalPosition = dist.getVertical();
+        int specifiedHorizontalPosition = dist.getHorizontal();
 
-        //Получить возможную позицию фигуры при заданном расстоянии до требуемой позиции фигуры по вертикали
-        int finalPosOfFigureVert = posOfFigureVert + distanceVert;
-        int finalPosOfFigureHor = posOfFigureHor + distanceVert;
+        //Получить расстояние между текущим и заданным положением фигуры
+        int distance = Math.abs(verticalPosition - specifiedVerticalPosition);
 
-        //Сравнить совпадают ли возможная позиция фигуры с требуемой
-        if ( (finalPosOfFigureVert == possimblePosOfFigureVert)
-                && (finalPosOfFigureHor == possimblePosOfFigureHor)
+        //Получить координаты клетки, куда может переместиться фигура при заданном расстоянии
+        int possibleVerticalPosition = verticalPosition + distance;
+        int possibleHorizontalPosition = horizontalPosition + distance;
+
+        //Сравнить заданные координаты движения фигуры с возможным ее движением при заданном расстоянии
+        if ( (possibleVerticalPosition == specifiedVerticalPosition)
+                && (possibleHorizontalPosition == specifiedHorizontalPosition)
                 && (this.position.getVertical() != dist.getVertical())
-                && (this.position.getHorisontal() != dist.getHorisontal()) ){
+                && (this.position.getHorizontal() != dist.getHorizontal()) ){
+
             //Создать массив движения фигуры
-            for (int i = 0; i < distanceVert; i++){
-                cells[i] = new Cell(posOfFigureVert + i + 1, posOfFigureHor + i + 1);
+            for (int i = 0; i < distance; i++){
+                cells[i] = new Cell(verticalPosition + i + 1, horizontalPosition + i + 1);
             }
             return cells;
         } else {
@@ -43,7 +58,12 @@ public class Bishop extends Figure {
         }
     }
 
-    public Figure clone(Cell cell){
+    /**
+     * Метод перемещает фигуру Слон в заданную клетку
+     * @param cell заданная клетка для перемещения
+     * @return возвращает фигуру Слон с новым местоположением на доске
+     */
+    protected Figure clone(Cell cell){
         return new Bishop(cell);
     }
 }
