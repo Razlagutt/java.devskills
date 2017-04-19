@@ -17,17 +17,17 @@ public class BishopTest {
      */
     @Test
     public void way() throws ImpossibleMoveException {
-        Cell[] cellsArr = new Cell[]{
-            new Cell(2, 2),
-            new Cell(3, 3),
-            new Cell(4, 4),
+
+        //Массив клеток
+        Cell[] cells = new Cell[]{
+            //Начальное положение фигуры
+            new Cell(1, 1),
+            //Координаты для перемещения
             new Cell(5, 5)
         };
 
-        Cell cell = new Cell(1,1);
-        Cell cell1 = new Cell(5,5);
-        Bishop bishop = new Bishop(cell);
-        Cell[] cells = bishop.way(cell1);
-        assertThat(cellsArr[3].getHorizontal(), is(cells[3].getHorizontal()));
+        Bishop bishop = new Bishop(cells[0]);
+        Cell[] checkCells = bishop.way(cells[1]);
+        assertThat(cells[1].getHorizontal(), is(checkCells[3].getHorizontal()));
     }
 }

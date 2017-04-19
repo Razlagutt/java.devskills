@@ -18,7 +18,7 @@ public class BoardTest {
             new Bishop(new Cell(4,2)),
             new Bishop(new Cell(2,7)),
             new Bishop(new Cell(5,2)),
-            new Bishop(new Cell(8,4)),
+            new Bishop(new Cell(8,4))
     };
 
     //Путь перемещения фигуры
@@ -35,8 +35,8 @@ public class BoardTest {
     @Test
     public void haveFiguresIn(){
         Board board = new Board(this.figures);
-        boolean boardhaveFiguresInCells = board.haveFiguresIn(this.cells, this.figures[0]);
-        assertFalse(boardhaveFiguresInCells);
+        boolean boardHaveFiguresInCells = board.haveFiguresIn(this.cells, this.figures[0]);
+        assertFalse(boardHaveFiguresInCells);
     }
 
     /**
@@ -48,7 +48,7 @@ public class BoardTest {
     @Test
     public void move() throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         Board board = new Board(this.figures);
-        boolean figureIsCanMove = board.move(this.figures[0].position, this.cells[3]);
+        boolean figureIsCanMove = board.move(new Cell(1,2), this.cells[3]);
         assertTrue(figureIsCanMove);
     }
 }
