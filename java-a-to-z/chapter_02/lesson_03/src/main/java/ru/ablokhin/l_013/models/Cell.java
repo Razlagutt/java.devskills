@@ -39,21 +39,21 @@ public class Cell {
     }
 
     /**
-     *Метод проверяет клетку на занятость фигурой
+     * Метод проверяет клетку на занятость фигурой
      * @param figures фигуры, которые потенциально могут занимать эту клетку
      * @return возвращает фигуру, которая занимает эту клетку
      * @throws FigureNotFoundException исключение в случае, если клетка не занята фигурой
      */
-    protected Figure isNotFilledWith(Figure[] figures) throws FigureNotFoundException{
-        Figure foundTheFigure = null;
+    protected Figure isFilledWith(Figure[] figures) throws FigureNotFoundException{
+        Figure figureIsFound = null;
         for (Figure figure : figures) {
             if(figure != null &&
                     figure.position.getHorizontal() == this.getHorizontal() &&
                     figure.position.getVertical() == this.getVertical() ){
-                foundTheFigure = figure;
+                figureIsFound = figure;
                 break;
             }
         }
-        return foundTheFigure;
+        return figureIsFound;
     }
 }

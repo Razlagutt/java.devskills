@@ -5,16 +5,24 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
- * Created by Blokhin on 31.03.2017.
+ * Класс для проверки метода way()
+ * @author ablokhin
+ * @since 31.03.2017
+ * @version 1
  */
 public class BishopTest {
+    /**
+     * Метод для проверки метода way()
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру Слон в заданную клетку
+     */
     @Test
-    public void way() throws Exception {
-        Cell[] cellsArr = new Cell[8];
-        cellsArr[0] = new Cell(2,2);
-        cellsArr[1] = new Cell(3,3);
-        cellsArr[2] = new Cell(4,4);
-        cellsArr[3] = new Cell(5,5);
+    public void way() throws ImpossibleMoveException {
+        Cell[] cellsArr = new Cell[]{
+            new Cell(2, 2),
+            new Cell(3, 3),
+            new Cell(4, 4),
+            new Cell(5, 5)
+        };
 
         Cell cell = new Cell(1,1);
         Cell cell1 = new Cell(5,5);
@@ -22,5 +30,4 @@ public class BishopTest {
         Cell[] cells = bishop.way(cell1);
         assertThat(cellsArr[3].getHorizontal(), is(cells[3].getHorizontal()));
     }
-
 }

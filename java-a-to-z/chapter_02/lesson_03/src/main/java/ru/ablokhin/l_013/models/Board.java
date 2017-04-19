@@ -26,23 +26,23 @@ public class Board {
      * @return возвращает true, если путь свободен
      * @throws OccupiedWayException исключение в случае наличие фигур(ы) на пути следования
      */
-    protected boolean hasNotFiguresIn(Cell[] cells, Figure figure) throws OccupiedWayException {
-        boolean boardHasNotFiguresInCells = false;
+    protected boolean haveFiguresIn(Cell[] cells, Figure figure){
+        boolean boardhaveFiguresInCells = false;
         for (Figure checkFigure : this.figures) {
             for (Cell cell : cells) {
                 if ( cell != null &&
                         figure != null &&
                         checkFigure != null &&
-                        checkFigure.position.getHorizontal() != figure.position.getHorizontal() &&
-                        checkFigure.position.getVertical() != figure.position.getVertical() &&
+                        !(checkFigure.position.getHorizontal() == figure.position.getHorizontal() &&
+                        checkFigure.position.getVertical() == figure.position.getVertical()) &&
                         checkFigure.position.getHorizontal() == cell.getHorizontal() &&
                         checkFigure.position.getVertical() == cell.getVertical()){
-                    boardHasNotFiguresInCells = true;
+                    boardhaveFiguresInCells = true;
                     break;
                 }
             }
         }
-        return boardHasNotFiguresInCells;
+        return boardhaveFiguresInCells;
     }
 
     /**
@@ -56,10 +56,10 @@ public class Board {
      */
     protected boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
         boolean figureIsCanMove = false;
-        Figure figure = source.isNotFilledWith(this.figures);
+        Figure figure = source.isFilledWith(this.figures);
         if (figure == null){throw new FigureNotFoundException("Figure not found!");}
         else if (figure.way(dist)[0] == null){throw new ImpossibleMoveException("Figure can't moves!");}
-        else if (this.hasNotFiguresIn(figure.way(dist), figure)){throw new OccupiedWayException("Figure way is occupied");}
+        else if (this.haveFiguresIn(figure.way(dist), figure)){throw new OccupiedWayException("Figure way is occupied");}
         else {
             figure.clone(dist);
             figureIsCanMove = true;
