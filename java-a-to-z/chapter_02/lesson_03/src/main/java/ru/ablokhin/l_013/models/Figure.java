@@ -8,12 +8,12 @@ package ru.ablokhin.l_013.models;
  */
 public abstract class Figure{
 
-    //Изначальная позиция фигуры на щахматной доске
+    //Изначальная позиция фигуры на шахматной доске
     final Cell position;
 
     /**
      * Конструктор фигуры
-     * @param position изначальная позиция фигуры на щахматной доске
+     * @param position изначальная позиция фигуры на шахматной доске
      */
     protected Figure(Cell position){
         this.position = position;

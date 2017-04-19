@@ -10,7 +10,7 @@ public class Bishop extends Figure {
 
     /**
      * Конструктор фигуры Слон
-     * @param position изначальная позиция фигуры Слон на щахматной доске
+     * @param position изначальная позиция фигуры Слон на шахматной доске
      */
     public Bishop(Cell position) {
         super(position);
@@ -39,19 +39,25 @@ public class Bishop extends Figure {
         int distance = Math.abs(verticalPosition - specifiedVerticalPosition);
 
         //Получить координаты клетки, куда может переместиться фигура при заданном расстоянии
-        int possibleVerticalPosition = verticalPosition + distance;
-        int possibleHorizontalPosition = horizontalPosition + distance;
+        int possibleVerticalPosition = (verticalPosition >= specifiedVerticalPosition)
+                ? verticalPosition - distance : verticalPosition + distance;
+        int possibleHorizontalPosition = (horizontalPosition >= specifiedHorizontalPosition)
+                ? horizontalPosition - distance : horizontalPosition + distance;
 
         //Сравнить заданные координаты движения фигуры с возможным ее движением при заданном расстоянии
         if ( (possibleVerticalPosition == specifiedVerticalPosition)
                 && (possibleHorizontalPosition == specifiedHorizontalPosition)
-                && (this.position.getVertical() != dist.getVertical())
-                && (this.position.getHorizontal() != dist.getHorizontal()) ){
+                && (verticalPosition != specifiedVerticalPosition)
+                && (horizontalPosition != specifiedHorizontalPosition) ){
 
             //Создать массив движения фигуры
             for (int i = 0; i < distance; i++){
-                cells[i] = new Cell(verticalPosition + i + 1, horizontalPosition + i + 1);
-            }
+                cells[i] = new Cell(
+                        (verticalPosition >= specifiedVerticalPosition)
+                        ? verticalPosition - i - 1 : verticalPosition + i + 1,
+                        (horizontalPosition >= specifiedHorizontalPosition)
+                        ? horizontalPosition - i - 1 : horizontalPosition + i + 1
+                );}
             return cells;
         } else {
             throw new ImpossibleMoveException("Impossible move!");

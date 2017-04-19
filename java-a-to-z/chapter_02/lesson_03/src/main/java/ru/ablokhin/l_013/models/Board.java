@@ -34,7 +34,7 @@ public class Board {
                         figure != null &&
                         checkFigure != null &&
 
-                        //Условие, исключающее из проверки фигуру, которую нужно переметить
+                        //Условие, исключающее из проверки фигуру, которую нужно переместить
                         !(checkFigure.position.getHorizontal() == figure.position.getHorizontal() &&
                         checkFigure.position.getVertical() == figure.position.getVertical()) &&
 

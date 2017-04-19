@@ -21,13 +21,13 @@ public class BishopTest {
         //Массив клеток
         Cell[] cells = new Cell[]{
             //Начальное положение фигуры
-            new Cell(1, 1),
+            new Cell(8, 1),
             //Координаты для перемещения
-            new Cell(5, 5)
+            new Cell(1, 8)
         };
 
         Bishop bishop = new Bishop(cells[0]);
         Cell[] checkCells = bishop.way(cells[1]);
-        assertThat(cells[1].getHorizontal(), is(checkCells[3].getHorizontal()));
+        assertThat(cells[1].getHorizontal(), is(checkCells[6].getHorizontal()));
     }
 }
