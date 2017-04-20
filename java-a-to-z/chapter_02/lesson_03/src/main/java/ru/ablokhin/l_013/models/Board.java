@@ -67,9 +67,9 @@ public class Board {
             Figure figure = source.isFilledWith(this.figures);
             Cell[] cells = figure.way(dist);
             if (!this.haveFiguresIn(cells, figure)) {
-                for (int i = 0; i < figures.length; i++) {
-                    if (figures[i] != null && figure.equals(figures[i])) {
-                        figures[i] = figure.clone(dist);
+                for (int i = 0; i < this.figures.length; i++) {
+                    if (this.figures[i] != null && figure.equals(this.figures[i])) {
+                        this.figures[i] = figure.clone(dist);
                         figureIsCanMove = true;
                         break;
                     }
