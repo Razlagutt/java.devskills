@@ -26,7 +26,7 @@ public class Board {
      * @return возвращает true, если путь свободен
      * @throws OccupiedWayException исключение в случае наличие фигур(ы) на пути следования
      */
-    protected boolean haveFiguresIn(Cell[] cells, Figure figure){
+    protected boolean haveFiguresIn(Cell[] cells, Figure figure) throws OccupiedWayException{
         boolean boardHaveFiguresInCells = false;
         for (Figure checkFigure : this.figures) {
             for (Cell cell : cells) {
@@ -46,6 +46,9 @@ public class Board {
                 }
             }
         }
+        if (boardHaveFiguresInCells){
+            throw new OccupiedWayException("Figure way is occupied!");
+        }
         return boardHaveFiguresInCells;
     }
 
@@ -58,15 +61,26 @@ public class Board {
      * @throws OccupiedWayException исключение в случае, если путь в заданную клетку занят фигурами
      * @throws FigureNotFoundException исключение в случае отсутствия фигуры в source клетке
      */
-    protected boolean move(Cell source, Cell dist) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException{
+    protected boolean move(Cell source, Cell dist) {
         boolean figureIsCanMove = false;
-        Figure figure = source.isFilledWith(this.figures);
-        if (figure == null){throw new FigureNotFoundException("Figure not found!");}
-        else if (figure.way(dist)[0] == null){throw new ImpossibleMoveException("Figure can't move!");}
-        else if (this.haveFiguresIn(figure.way(dist), figure)){throw new OccupiedWayException("Figure way is occupied");}
-        else {
-            figure.clone(dist);
-            figureIsCanMove = true;
+        try{
+            Figure figure = source.isFilledWith(this.figures);
+            Cell[] cells = figure.way(dist);
+            if (!this.haveFiguresIn(cells, figure)) {
+                for (int i = 0; i < figures.length; i++) {
+                    if (figures[i] != null && figure.equals(figures[i])) {
+                        figures[i] = figure.clone(dist);
+                        figureIsCanMove = true;
+                        break;
+                    }
+                }
+            }
+        }catch (FigureNotFoundException ffe){
+            System.out.println("Figure not found!");
+        }catch (ImpossibleMoveException ime){
+            System.out.println("Figure can't move!");
+        }catch (OccupiedWayException owe){
+            System.out.println("Figure way is occupied!");
         }
         return figureIsCanMove;
     }

@@ -18,25 +18,55 @@ public class BoardTest {
             new Bishop(new Cell(4,2)),
             new Bishop(new Cell(2,7)),
             new Bishop(new Cell(5,2)),
-            new Bishop(new Cell(8,4))
+            new Bishop(new Cell(4,5))
     };
 
-    //Путь перемещения фигуры
-    Cell[] cells = new Cell[]{
-            new Cell(2,3),
-            new Cell(3,4),
-            new Cell(4,5),
-            new Cell(5,6)
-    };
+    //Шахматная доска
+    Board board = new Board(this.figures);
 
     /**
      * Метод проверки haveFiguresIn()
      */
     @Test
-    public void haveFiguresIn(){
-        Board board = new Board(this.figures);
-        boolean boardHaveFiguresInCells = board.haveFiguresIn(this.cells, this.figures[0]);
-        assertFalse(boardHaveFiguresInCells);
+    public void boardHaveFiguresInCellsTest() throws OccupiedWayException {
+        assertFalse(this.board.haveFiguresIn(
+                new Cell[]{
+                new Cell(2,3),
+                new Cell(3,4),
+        }, this.figures[0]));
+    }
+
+    /**
+     * Метод проверки выброса исключения FigureNotFoundException
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру в заданную клетку
+     * @throws OccupiedWayException исключение в случае, если путь в заданную клетку занят фигурами
+     * @throws FigureNotFoundException исключение в случае отсутствия фигуры в source клетке
+     */
+    @Test
+    public void figureNotFoundTest() throws FigureNotFoundException, ImpossibleMoveException, OccupiedWayException {
+        assertFalse(this.board.move(new Cell(2,2), new Cell(7,8)));
+    }
+
+    /**
+     * Метод проверки выброса исключения ImpossibleMoveException
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру в заданную клетку
+     * @throws OccupiedWayException исключение в случае, если путь в заданную клетку занят фигурами
+     * @throws FigureNotFoundException исключение в случае отсутствия фигуры в source клетке
+     */
+    @Test
+    public void figureCanNotMoveTest() throws FigureNotFoundException, ImpossibleMoveException, OccupiedWayException {
+        assertFalse(this.board.move(new Cell(1,2), new Cell(8,8)));
+}
+
+    /**
+     * Метод проверки выброса исключения OccupiedWayException
+     * @throws ImpossibleMoveException исключение в случае не возможности переместить фигуру в заданную клетку
+     * @throws OccupiedWayException исключение в случае, если путь в заданную клетку занят фигурами
+     * @throws FigureNotFoundException исключение в случае отсутствия фигуры в source клетке
+     */
+    @Test
+    public void figureWayIsOccupiedTest() throws FigureNotFoundException, ImpossibleMoveException, OccupiedWayException {
+        assertFalse(this.board.move(new Cell(1,2), new Cell(7,8)));
     }
 
     /**
@@ -46,9 +76,7 @@ public class BoardTest {
      * @throws FigureNotFoundException исключение в случае отсутствия фигуры в source клетке
      */
     @Test
-    public void move() throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        Board board = new Board(this.figures);
-        boolean figureIsCanMove = board.move(new Cell(1,2), this.cells[3]);
-        assertTrue(figureIsCanMove);
+    public void figureIsCanMoveTest() throws FigureNotFoundException, ImpossibleMoveException, OccupiedWayException {
+        assertTrue(this.board.move(new Cell(1,2), new Cell(3,4)));
     }
 }

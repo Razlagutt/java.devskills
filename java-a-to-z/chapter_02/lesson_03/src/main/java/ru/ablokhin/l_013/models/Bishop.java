@@ -35,23 +35,17 @@ public class Bishop extends Figure {
         int specifiedVerticalPosition = dist.getVertical();
         int specifiedHorizontalPosition = dist.getHorizontal();
 
-        //Получить расстояние между текущим и заданным положением фигуры
-        int distance = Math.abs(verticalPosition - specifiedVerticalPosition);
-
-        //Получить координаты клетки, куда может переместиться фигура при заданном расстоянии
-        int possibleVerticalPosition = (verticalPosition >= specifiedVerticalPosition)
-                ? verticalPosition - distance : verticalPosition + distance;
-        int possibleHorizontalPosition = (horizontalPosition >= specifiedHorizontalPosition)
-                ? horizontalPosition - distance : horizontalPosition + distance;
+        //Получить расстояние между текущим и заданным положением фигуры по вертикали и горизонтали
+        int verticalDistance = Math.abs(verticalPosition - specifiedVerticalPosition);
+        int horizontalDistance = Math.abs(horizontalPosition - specifiedHorizontalPosition);
 
         //Сравнить заданные координаты движения фигуры с возможным ее движением при заданном расстоянии
-        if ( (possibleVerticalPosition == specifiedVerticalPosition)
-                && (possibleHorizontalPosition == specifiedHorizontalPosition)
+        if ( (verticalDistance == horizontalDistance)
                 && (verticalPosition != specifiedVerticalPosition)
                 && (horizontalPosition != specifiedHorizontalPosition) ){
 
             //Создать массив движения фигуры
-            for (int i = 0; i < distance; i++){
+            for (int i = 0; i < verticalDistance; i++){
                 cells[i] = new Cell(
                         (verticalPosition >= specifiedVerticalPosition)
                         ? verticalPosition - i - 1 : verticalPosition + i + 1,
@@ -60,7 +54,7 @@ public class Bishop extends Figure {
                 );}
             return cells;
         } else {
-            throw new ImpossibleMoveException("Impossible move!");
+            throw new ImpossibleMoveException("Figure can't move!");
         }
     }
 

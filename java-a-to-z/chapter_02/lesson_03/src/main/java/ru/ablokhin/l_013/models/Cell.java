@@ -54,6 +54,9 @@ public class Cell {
                 break;
             }
         }
+        if (figureIsFound == null){
+            throw new FigureNotFoundException("Figure not found!");
+        }
         return figureIsFound;
     }
 }
