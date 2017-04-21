@@ -19,8 +19,17 @@
 		<module>java-a-to-z\chapter_01\lesson_06</module>
 		<module>java-a-to-z\chapter_02\lesson_02</module>
 		<module>java-a-to-z\chapter_02\lesson_03</module>
-		<!--<module>java-a-to-z\chapter_02\lesson_04</module>
-		<module>java-a-to-z\chapter_02\lesson_05</module>
+		<module>java-a-to-z\chapter_03\lesson_301</module>
+		<module>java-a-to-z\chapter_03\lesson_302</module>
+		<module>java-a-to-z\chapter_03\lesson_303</module>
+		<module>java-a-to-z\chapter_04\lesson_401</module>
+		<!--<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
+		<module>java-a-to-z\chapter_02\lesson_06</module>
 		<module>java-a-to-z\chapter_02\lesson_06</module>
 		<module>java-a-to-z\chapter_02\lesson_07</module>-->
 	</modules>
