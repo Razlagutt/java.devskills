@@ -4,16 +4,27 @@ import java.util.Iterator;
 /**
  * Created by Blokhin on 21.04.2017.
  */
-public class MyArrayIterator {
-    Iterator<int> iterator = new Iterator<int>(int[][]{{1,2},{3,4}}) {
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
+public class MyArrayIterator implements Iterator {
+    private int[][] arr;
+    private int i = 0;
+    private int j = 0;
 
-        @Override
-        public int next() {
-            return 0;
+    public MyArrayIterator(int[][] arr){
+        this.arr = arr;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return true;// this.arr.length > this.i;
+    }
+
+    @Override
+    public Object next() {
+        if(this.arr[this.i].length > this.j){
+            return  this.arr[this.i][this.j++];
+        } else {
+            this.j = 0;
+            return  this.arr[this.i++][this.j];
         }
-    };
+    }
 }
