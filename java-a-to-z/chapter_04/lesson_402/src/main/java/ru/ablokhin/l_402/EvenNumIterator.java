@@ -33,8 +33,8 @@ public class EvenNumIterator implements Iterator {
     }
 
     /**
-     * Метод возвращает четный элемент массива
-     * @return возвращает четный элемент массива
+     * Метод возвращает четное число из массива
+     * @return возвращает четное число из массива
      */
     @Override
     public Object next(){
