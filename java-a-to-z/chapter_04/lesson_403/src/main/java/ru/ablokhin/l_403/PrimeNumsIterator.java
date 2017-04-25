@@ -29,7 +29,27 @@ public class PrimeNumsIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return this.pNums.length - 1 > this.i;
+        boolean isPrimeNum = false;
+        if(this.pNums.length - 1 > this.i){
+            if (this.pNums[i] == 0 || this.pNums[i] == 1 || this.pNums[i] == 2){
+                isPrimeNum = true;
+            }else {
+                while (this.pNums.length > this.i){
+                    for(int j = 2; j <= this.pNums[i]; j++){
+                        if (this.pNums[i] % j == 0 && this.pNums[i] > j){
+                            this.i++;
+                            break;
+                        }
+                        if(this.pNums[i] % j == 0 && this.pNums[i] == j){
+                            isPrimeNum = true;
+                            break;
+                        }
+                    }
+                    if(isPrimeNum) break;
+                }
+            }
+        }
+        return isPrimeNum;
     }
 
     /**
@@ -38,28 +58,6 @@ public class PrimeNumsIterator implements Iterator {
      */
     @Override
     public Object next() {
-        boolean isPrimeNum = false;
-        int primeNum = 0;
-        if (this.pNums[i] == 0 || this.pNums[i] == 1 || this.pNums[i] == 2){
-            primeNum = this.pNums[i++];
-        }else {
-            while (this.pNums.length > this.i){
-                for(int j = 2; j <= this.pNums[i]; j++){
-                    if (this.pNums[i] % j == 0 && this.pNums[i] > j){
-                        this.i++;
-                        break;
-                    }
-                    if(this.pNums[i] % j == 0 && this.pNums[i] == j){
-                        primeNum = this.pNums[i++];
-                        isPrimeNum = true;
-                        break;
-                    }
-                }
-                if(isPrimeNum){
-                    break;
-                }
-            }
-        }
-        return primeNum;
+        return this.pNums[this.i++];
     }
 }

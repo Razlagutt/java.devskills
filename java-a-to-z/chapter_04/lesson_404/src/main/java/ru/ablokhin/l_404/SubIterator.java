@@ -8,10 +8,10 @@ import java.util.Iterator;
  * @since 24.04.2017
  * @version 1
  */
-public class SubIterator implements Iterator {
+public class SubIterator<E> implements Iterator {
 
     //Массив целых чисел
-    private int[] values;
+    private E[] values;
     //Индекс массива целых чисел
     private int i = 0;
 
@@ -19,7 +19,7 @@ public class SubIterator implements Iterator {
      * Конструктор итератора целых чисел
      * @param values массив целых чисел
      */
-    public SubIterator(int[] values){
+    public SubIterator(E[] values){
         this.values = values;
     }
 
@@ -29,6 +29,13 @@ public class SubIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
+        /*boolean objHasNext;
+        if(this.values.length > this.i){
+            objHasNext = true;
+        } else {
+            objHasNext = false;
+            this.i = 0;
+        }*/
         return this.values.length > this.i;
     }
 

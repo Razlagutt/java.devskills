@@ -29,7 +29,16 @@ public class EvenNumIterator implements Iterator {
      */
     @Override
     public boolean hasNext(){
-        return this.eNum.length - 1 > this.i;
+        boolean isNext = false;
+        while (this.eNum.length > this.i){
+            if (this.eNum[this.i] % 2 == 0){
+                isNext = true;
+                break;
+            } else {
+                this.i++;
+            }
+        }
+        return isNext;
     }
 
     /**
@@ -38,11 +47,6 @@ public class EvenNumIterator implements Iterator {
      */
     @Override
     public Object next(){
-        int evenNum = 0;
-        while (this.eNum[this.i++] % 2 != 0){
-            evenNum = this.eNum[this.i++];
-            break;
-        }
-        return evenNum;
+        return this.eNum[this.i++];
     }
 }
