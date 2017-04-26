@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThat;
 
 /**
  * Класс тестирует итератор целых чисел
@@ -21,14 +19,15 @@ public class ConvertIteratorTest {
      */
     @Test
     public void convertTest(){
-        SubIterator<Iterator<Integer>> it = new SubIterator<Iterator<Integer>>(new Iterator[]{
+        Iterator<Integer> expIt = new ConvertIterator().convert(new SubIterator<Iterator<Integer>>(
+                new Iterator[]{
                         new SubIterator(new Integer[]{4, 2, 0, 4, 6, 4, 9}),
                         new SubIterator(new Integer[]{0, 9, 8, 7, 5}),
                         new SubIterator(new Integer[]{1, 3, 5, 6, 7, 0, 9, 8, 4})
-                });
+                }));
+
         Iterator<Integer> actIt = new SubIterator<Integer>(
                 new Integer[]{4, 2, 0, 4, 6, 4, 9, 0, 9, 8, 7, 5, 1, 3, 5, 6, 7, 0, 9, 8, 4});
-        Iterator<Integer> expIt = new ConvertIterator().convert(it);
 
         int i = 0;
         int[] expArr = new int[21];
