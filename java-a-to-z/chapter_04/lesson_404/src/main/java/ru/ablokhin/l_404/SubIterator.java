@@ -5,8 +5,8 @@ import java.util.Iterator;
 /**
  * Класс описывает итератор целых чисел
  * @author Blokhin
- * @since 24.04.2017
- * @version 1
+ * @since 26.04.2017
+ * @version 2
  */
 public class SubIterator<E> implements Iterator {
 
@@ -29,13 +29,6 @@ public class SubIterator<E> implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        /*boolean objHasNext;
-        if(this.values.length > this.i){
-            objHasNext = true;
-        } else {
-            objHasNext = false;
-            this.i = 0;
-        }*/
         return this.values.length > this.i;
     }
 
