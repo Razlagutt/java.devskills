@@ -1,4 +1,4 @@
-package ru.ablokhin.l_404;
+package ru.ablokhin.l404;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.Iterator;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
- * Класс тестирует итератор целых чисел
+ * Класс тестирует итератор целых чисел.
  * @author Blokhin
  * @since 26.04.2017
  * @version 2
@@ -15,10 +15,10 @@ import static org.junit.Assert.assertArrayEquals;
 public class ConvertIteratorTest {
 
     /**
-     * Метод тестирует преобразование итератора итераторов целых чисел в один итреатор целых чисел
+     * Метод тестирует преобразование итератора итераторов целых чисел в один итреатор целых чисел.
      */
     @Test
-    public void convertTest(){
+    public void convertTest() {
         Iterator<Integer> expIt = new ConvertIterator().convert(new SubIterator<Iterator<Integer>>(
                 new Iterator[]{
                         new SubIterator(new Integer[]{4, 2, 0, 4, 6, 4, 9}),
@@ -31,13 +31,13 @@ public class ConvertIteratorTest {
 
         int i = 0;
         int[] expArr = new int[21];
-        while (expIt.hasNext()){
+        while (expIt.hasNext()) {
             expArr[i++] = expIt.next();
         }
 
         i = 0;
         int[] actArr = new int[21];
-        while (actIt.hasNext()){
+        while (actIt.hasNext()) {
             actArr[i++] = actIt.next();
         }
 

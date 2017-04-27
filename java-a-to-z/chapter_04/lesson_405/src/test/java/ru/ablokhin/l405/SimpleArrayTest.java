@@ -1,12 +1,13 @@
-package ru.ablokhin.l_405;
+package ru.ablokhin.l405;
 
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNull;
 
 /**
- * Класс, тестирующий методы класса контейнера данных
+ * Класс, тестирующий методы класса контейнера данных.
  * @author Blokhin
  * @since  25.04.2017
  * @version 1
@@ -14,11 +15,10 @@ import static org.junit.Assert.*;
 public class SimpleArrayTest {
 
     /**
-     * Метод теститрует возможность добавление объекта в контейнер
-     * @throws Exception
+     * Метод теститрует возможность добавление объекта в контейнер.
      */
     @Test
-    public void add() throws Exception {
+    public void add() {
         SimpleArray<Integer> iSimpleArray = new SimpleArray<>(new Integer[1]);
 
         iSimpleArray.add(1);
@@ -27,11 +27,10 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Метод теститрует возможность изменения объекта в контейнере на другой
-     * @throws Exception
+     * Метод теститрует возможность изменения объекта в контейнере на другой.
      */
     @Test
-    public void update() throws Exception {
+    public void update() {
         SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[]{"Start"});
 
         strSimpleArray.update("Finish", 0);
@@ -40,11 +39,10 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Метод теститрует возможность удаления объекта из контейнера
-     * @throws Exception
+     * Метод теститрует возможность удаления объекта из контейнера.
      */
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[]{"a", "c", "b"});
 
         strSimpleArray.delete("c");
@@ -53,11 +51,10 @@ public class SimpleArrayTest {
     }
 
     /**
-     * Метод теститрует возможность получения объекта из контейнера
-     * @throws Exception
+     * Метод теститрует возможность получения объекта из контейнера.
      */
     @Test
-    public void get() throws Exception {
+    public void get() {
         SimpleArray<Integer> iSimpleArray = new SimpleArray<>(new Integer[]{1});
 
         assertThat(iSimpleArray.get(0), is(1));
