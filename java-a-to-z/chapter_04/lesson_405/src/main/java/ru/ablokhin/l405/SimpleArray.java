@@ -1,5 +1,7 @@
 package ru.ablokhin.l405;
 
+import java.util.Iterator;
+
 /**
  * Обощенный класс, описывающий контейнер данных.
  * @author Blokhin
@@ -7,7 +9,7 @@ package ru.ablokhin.l405;
  * @param <T>
  * @version 1
  */
-public class SimpleArray<T> {
+public class SimpleArray<T> implements Iterator {
 
     /**
      * Обощенный массив.
@@ -51,16 +53,9 @@ public class SimpleArray<T> {
     protected void delete(T obj) {
         for (int i = 0; i < this.arr.length; i++) {
             if (this.arr[i] != null && this.arr[i].equals(obj)) {
-                this.arr[i] = null;
+                System.arraycopy(this.arr, i + 1, this.arr, i, this.arr.length - i - 1);
+                arr[++i] = null;
                 break;
-            }
-        }
-
-        for (int i = 0; i < this.arr.length - 1; i++) {
-            if (this.arr[i] == null && this.arr[i + 1] != null) {
-                T tmp = this.arr[i];
-                this.arr[i] = this.arr[i + 1];
-                this.arr[i + 1] = tmp;
             }
         }
     }
@@ -72,5 +67,23 @@ public class SimpleArray<T> {
      */
     protected T get(int index) {
         return this.arr[index];
+    }
+
+    /**
+     * Метод проверяет наличие следующего элемента в массиве.
+     * @return возвращает true, если в массиве есть следующий элемент, false в противном случае
+     */
+    @Override
+    public boolean hasNext() {
+        return this.arr.length > this.index && this.arr[index] != null;
+    }
+
+    /**
+     * Метод возвращает целое число из массива.
+     * @return возвращает целое число из массива
+     */
+    @Override
+    public Object next() {
+        return this.arr[index++];
     }
 }

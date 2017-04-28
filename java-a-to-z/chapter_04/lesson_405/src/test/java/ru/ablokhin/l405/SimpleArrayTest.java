@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Класс, тестирующий методы класса контейнера данных.
@@ -44,10 +44,17 @@ public class SimpleArrayTest {
     @Test
     public void delete() {
         SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[]{"a", "c", "b"});
+        String[] actArr = new String[]{"a", "b"};
 
         strSimpleArray.delete("c");
 
-        assertNull(strSimpleArray.get(2));
+        int i = 0;
+        String[] expArr = new String[2];
+        while (strSimpleArray.hasNext()) {
+            expArr[i++] = (String) strSimpleArray.next();
+        }
+
+        assertArrayEquals(expArr, actArr);
     }
 
     /**
