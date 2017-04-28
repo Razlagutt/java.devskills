@@ -51,7 +51,6 @@ public class SimpleArray<T> implements Iterator {
      * @param obj объект, который нужно удалить из контейнера
      */
     protected void delete(T obj) {
-        String[] arr1 = new String[this.arr.length - 1];
         for (int i = 0; i < this.arr.length; i++) {
             if (this.arr[i] != null && this.arr[i].equals(obj)) {
                 System.arraycopy(this.arr, i + 1, this.arr, i, this.arr.length - i - 1);
