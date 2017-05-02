@@ -22,6 +22,11 @@ public class SimpleArray<T> implements Iterator {
     private int index;
 
     /**
+     * Индекс итератора.
+     */
+    private int idx = 0;
+
+    /**
      * Конструктор контейнера данных.
      * @param arr массив данных
      */
@@ -54,7 +59,7 @@ public class SimpleArray<T> implements Iterator {
         for (int i = 0; i < this.arr.length; i++) {
             if (this.arr[i] != null && this.arr[i].equals(obj)) {
                 System.arraycopy(this.arr, i + 1, this.arr, i, this.arr.length - i - 1);
-                this.arr[this.arr.length - 1] = null;
+                this.arr[--index] = null;
                 break;
             }
         }
@@ -75,7 +80,13 @@ public class SimpleArray<T> implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return this.arr.length > this.index && this.arr[index] != null;
+        boolean arrHasNext;
+        if (this.arr.length > this.idx && this.arr[idx] != null) {
+            arrHasNext = true;
+        } else {
+            arrHasNext = false;
+        }
+        return arrHasNext;
     }
 
     /**
@@ -84,6 +95,6 @@ public class SimpleArray<T> implements Iterator {
      */
     @Override
     public Object next() {
-        return this.arr[index++];
+        return this.arr[idx++];
     }
 }

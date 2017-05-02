@@ -31,7 +31,8 @@ public class SimpleArrayTest {
      */
     @Test
     public void update() {
-        SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[]{"Start"});
+        SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[1]);
+        strSimpleArray.add("Start");
 
         strSimpleArray.update("Finish", 0);
 
@@ -43,13 +44,19 @@ public class SimpleArrayTest {
      */
     @Test
     public void delete() {
-        SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[]{"a", "c", "b"});
-        String[] actArr = new String[]{"a", "b"};
+        SimpleArray<String> strSimpleArray = new SimpleArray<>(new String[4]);
+        strSimpleArray.add("a");
+        strSimpleArray.add("c");
+        strSimpleArray.add("b");
+        strSimpleArray.add("d");
+        String[] actArr = new String[]{"d"};
 
         strSimpleArray.delete("c");
+        strSimpleArray.delete("b");
+        strSimpleArray.delete("a");
 
         int i = 0;
-        String[] expArr = new String[2];
+        String[] expArr = new String[1];
         while (strSimpleArray.hasNext()) {
             expArr[i++] = (String) strSimpleArray.next();
         }
