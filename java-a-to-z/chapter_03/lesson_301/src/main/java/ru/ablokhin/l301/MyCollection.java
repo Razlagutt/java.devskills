@@ -10,17 +10,17 @@ public class MyCollection {
     public long add(Collection<String> collection, String line, int amount) {
         long startTime = System.nanoTime();
         for (int i = 0; i < amount; i++) {
-            collection.add(line);
+            collection.add(line + String.valueOf(i));
         }
         long endTime = System.nanoTime();
         long difference = endTime - startTime;
         return difference;
     }
 
-    public long delete(Collection<String> collection, int amount) {
+    public long delete(Collection<String> collection, String line, int amount) {
         long startTime = System.nanoTime();
         for (int i = 0; i < amount; i++) {
-            collection.remove(i);
+            collection.remove(line + String.valueOf(i));
         }
         long endTime = System.nanoTime();
         long difference = endTime - startTime;
